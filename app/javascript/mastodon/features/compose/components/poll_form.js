@@ -142,7 +142,7 @@ class PollForm extends ImmutablePureComponent {
         </ul>
 
         <div className='poll__footer'>
-          <button disabled={options.size >= 4} className='button button-secondary' onClick={this.handleAddOption}><Icon id='plus' /> <FormattedMessage {...messages.add_option} /></button>
+          <button disabled={options.size >= 6} className='button button-secondary' onClick={this.handleAddOption}><Icon id='plus' /> <FormattedMessage {...messages.add_option} /></button>
 
           <select value={expiresIn} onBlur={this.handleSelectDuration}>
             <option value={300}>{intl.formatMessage(messages.minutes, { number: 5 })}</option>
