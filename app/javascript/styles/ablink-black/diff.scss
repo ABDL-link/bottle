@@ -1,0 +1,58 @@
+.ui,
+.tabs-bar,
+.column>.scrollable,
+.column-header,
+.column-header__button,
+.drawer__header,
+.drawer__inner,
+.drawer__inner__mastodon,
+.account__section-headline button,
+.notification__filter-bar button,
+.column-back-button,
+.account__header__bar,
+.account__section-headline,
+.notification__filter-bar,
+.account__section-headline,
+.notification__filter-bar,
+.empty-column-indicator,
+.error-column,
+.detailed-status,
+.detailed-status__action-bar,
+.drawer__inner.darker,
+.search__input,
+.search-results__header,
+.flex-spacer,
+.getting-started,
+.getting-started__wrapper,
+.column-link,
+.column-link__badge,
+.column-subheading,
+.column-link__badge,
+.column-subheading,
+.column-header__collapsible-inner,
+.column-header__button.active,
+.column-header__back-button,
+.load-more:hover {
+  background: #000;
+}
+
+.account__header__image {
+  background: #15181e;
+}
+
+.focusable:focus,
+.search__input:focus {
+  background: #191b22;
+}
+
+@media screen and (min-width: 360px) {
+
+  .tabs-bar {
+    margin: 0;
+  }
+
+  .columns-area {
+    padding: 0;
+  }
+
+}
