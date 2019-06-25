@@ -45,6 +45,11 @@
 #  also_known_as           :string           is an Array
 #  silenced_at             :datetime
 #  suspended_at            :datetime
+#  location                :string
+#  location_coordinates    :string
+#  location_enabled        :boolean
+#  latitude                :float
+#  longitude               :float
 #
 
 class Account < ApplicationRecord
@@ -76,6 +81,7 @@ class Account < ApplicationRecord
   validates_with UnreservedUsernameValidator, if: -> { local? && will_save_change_to_username? }
   validates :display_name, length: { maximum: 30 }, if: -> { local? && will_save_change_to_display_name? }
   validates :note, note_length: { maximum: 500 }, if: -> { local? && will_save_change_to_note? }
+  validates :location, length: { maximum: 60 }, if: -> { local? && will_save_change_to_location? }
   validates :fields, length: { maximum: 4 }, if: -> { local? && will_save_change_to_fields? }
 
   scope :remote, -> { where.not(domain: nil) }
@@ -494,11 +500,16 @@ class Account < ApplicationRecord
   before_validation :prepare_username, on: :create
   before_destroy :clean_feed_manager
 
+  geocoded_by :location
+  after_validation :geocode,
+    :if => lambda{ |obj| obj.location_changed? }
+
   private
 
   def prepare_contents
     display_name&.strip!
     note&.strip!
+    location&.strip!
   end
 
   def prepare_username

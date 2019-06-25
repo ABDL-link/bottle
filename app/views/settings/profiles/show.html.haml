@@ -8,6 +8,7 @@
     .fields-row__column.fields-group.fields-row__column-6
       = f.input :display_name, wrapper: :with_label, input_html: { maxlength: 30 }, hint: false
       = f.input :note, wrapper: :with_label, input_html: { maxlength: 500 }, hint: false
+      = f.input :location, wrapper: :with_label, input_html: { maxlength: 60 }, hint: "City or region, don't be too specific"
 
   .fields-row
     .fields-row__column.fields-row__column-6
@@ -25,6 +26,9 @@
 
   .fields-group
     = f.input :bot, as: :boolean, wrapper: :with_label, hint: t('simple_form.hints.defaults.bot')
+
+  .fields-group
+    = f.input :location_enabled, as: :boolean, wrapper: :with_label, hint: 'Show location on profile and in user locations'
 
   - if Setting.profile_directory
     .fields-group
