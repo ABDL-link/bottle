@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_25_223106) do
+ActiveRecord::Schema.define(version: 2019_06_25_104059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,7 +149,6 @@ ActiveRecord::Schema.define(version: 2019_06_25_223106) do
     t.datetime "silenced_at"
     t.datetime "suspended_at"
     t.string "location"
-    t.string "location_coordinates"
     t.boolean "location_enabled"
     t.float "latitude"
     t.float "longitude"

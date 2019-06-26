@@ -28,7 +28,7 @@
     = f.input :bot, as: :boolean, wrapper: :with_label, hint: t('simple_form.hints.defaults.bot')
 
   .fields-group
-    = f.input :location_enabled, as: :boolean, wrapper: :with_label, hint: 'Show location on profile and in user locations'
+    = f.input :location_enabled, as: :boolean, wrapper: :with_label, label: 'Display location', hint: 'Show on profile and in user locations'
 
   - if Setting.profile_directory
     .fields-group
