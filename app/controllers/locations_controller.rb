@@ -3,21 +3,19 @@
 class LocationsController < ApplicationController
   layout 'public'
 
+  attr_reader :accounts
+  helper_method :accounts
   before_action :authenticate_user!
-  before_action :set_accounts
 
   def index
     render :index
   end
 
-  private
-
-  def set_accounts
-    if current_account.location_valid?
-      @accounts = Account.location_shown.near(current_account, 10000).order('distance')
+  def accounts
+    @accounts ||= if current_account.location_valid?
+      Account.location_shown.near(current_account, 10000).order('distance').filter { |a| a != current_account }
     else
-      @accounts = Account.location_shown
+      Account.location_shown.filter { |a| a != current_account }
     end
   end
-
 end

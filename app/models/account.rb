@@ -514,15 +514,11 @@ class Account < ApplicationRecord
     :if => lambda{ |obj| obj.location_changed? }
 
   def location_valid?
-    return latitude.present? && longitude.present?
+    latitude.present? && longitude.present?
   end
 
   def location_shown?
-    if location_enabled
-      return location_valid?
-    else
-      return false
-    end
+    location_enabled && location_valid?
   end
 
   def distance(user)
