@@ -13,9 +13,9 @@ class LocationsController < ApplicationController
 
   def accounts
     @accounts ||= if current_account.location_valid?
-      Account.location_shown.near(current_account, 10000).order('distance').filter { |a| a != current_account }
+      Account.location_shown.near(current_account, 10000).order('distance').page(params[:page]).per(40)
     else
-      Account.location_shown.filter { |a| a != current_account }
+      Account.location_shown.page(params[:page]).per(40)
     end
   end
 end
