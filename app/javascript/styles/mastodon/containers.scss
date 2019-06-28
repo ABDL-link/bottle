@@ -744,6 +744,19 @@
       color: $darker-text-color;
     }
 
+    &__location,
+    .roles {
+      padding: 20px 20px 0px 20px;
+      font-size: 14px;
+      color: $primary-text-color;
+      a {
+        display: inline-block;
+        color: $primary-text-color;
+        text-decoration: none;
+        font-weight: 600;
+      }
+    }
+
     .roles {
       padding-bottom: 0;
     }

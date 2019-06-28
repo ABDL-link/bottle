@@ -25,5 +25,9 @@
   - if account.note.present?
     .account__header__content.emojify= Formatter.instance.simplified_format(account, custom_emojify: true)
 
+  - if account.location_shown?
+    .public-account-bio__location
+      %p= link_to account.location, locations_path
+
   .public-account-bio__extra
-    = t 'accounts.joined', date: l(account.created_at, format: :month)
+    %p= t 'accounts.joined', date: l(account.created_at, format: :month)

@@ -1,5 +1,5 @@
 - content_for :page_title do
-  = t('directories.explore_mastodon', title: site_title)
+  = 'Locations'
 
 - content_for :header_tags do
   %meta{ name: 'description', content: t('directories.explanation') }
@@ -11,7 +11,7 @@
   = opengraph 'og:image', File.join(root_url, 'android-chrome-192x192.png')
 
 .page-header
-  %h1= 'User Locations'
+  %h1= 'Locations'
   - if @searched.present?
     %p{ :style => "margin-top:20px; font-size:20px;" }
       Showing nearest to
@@ -59,8 +59,7 @@
 
         - if current_account.location_shown?
           %p
-            Your profile location is
-            %span{ :style => "font-weight:600;" }= current_account.location
+            Your profile location (<span style="font-weight:600;">#{current_account.location}</span>) is being shown
         - else
           %p= 'Your profile is not being shown!'
 
