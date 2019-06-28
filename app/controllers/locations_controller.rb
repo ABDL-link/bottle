@@ -12,10 +12,18 @@ class LocationsController < ApplicationController
   end
 
   def accounts
-    @accounts ||= if current_account.location_valid?
+    @accounts ||= if params[:search] && params[:search][:location]
+      locations = Geocoder.search(params[:search][:location])
+      if locations.first
+        Account.location_shown.near(locations.first.coordinates, 10000).order('distance').page(params[:page]).per(40)
+      else
+        Account.none.page(params[:page])
+      end
+    elsif current_account.location_valid?
       Account.location_shown.near(current_account, 10000).order('distance').page(params[:page]).per(40)
     else
       Account.location_shown.page(params[:page]).per(40)
     end
   end
+
 end

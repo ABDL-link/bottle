@@ -45,6 +45,10 @@
   .column-1
     - if user_signed_in?
       .box-widget.notice-widget
+
+        = simple_form_for :search, url: locations_path, html: { method: :get } do |f|
+          = f.input :location, input_html: { maxlength: 60 }, placeholder: 'Search'
+
         - if current_account.location_shown?
           %p= 'Your location: ' + current_account.location
         - else
