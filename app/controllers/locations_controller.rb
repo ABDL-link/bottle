@@ -8,11 +8,13 @@ class LocationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @searched = params[:search][:location] if params[:search]
+    @searched = params[:q][:location] if params[:q]
     if @searched.present?
-      locations = Geocoder.search(params[:search][:location])
+      locations = Geocoder.search(params[:q][:location])
       if locations.first
         @location = locations.first.coordinates
+      else
+        @searched = false
       end
     elsif current_account.location_valid?
       @location = current_account
