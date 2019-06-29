@@ -114,6 +114,11 @@ class GettingStarted extends ImmutablePureComponent {
       }
 
       navItems.push(
+        <ColumnLink key={i++} icon='map-marker' text='Locations' href='/locations' />
+      );
+      height += 48;
+
+      navItems.push(
         <ColumnSubheading key={i++} text={intl.formatMessage(messages.personal)} />
       );
 
@@ -123,6 +128,11 @@ class GettingStarted extends ImmutablePureComponent {
         <ColumnLink key={i++} icon='address-book' text={intl.formatMessage(messages.profile_directory)} href='/explore' />
       );
 
+      height += 48;
+
+      navItems.push(
+        <ColumnLink key={i++} icon='map-marker' text='Locations' href='/locations' />
+      );
       height += 48;
     }
 
