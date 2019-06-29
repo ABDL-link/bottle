@@ -14,6 +14,15 @@
 
   .fields-row
     .fields-row__column.fields-row__column-6
+      - if @account.location.present? && !@account.location_valid?
+        = f.input :location, wrapper: :with_label, input_html: { maxlength: 40 }, hint: "For example 'London, UK' – be a little vague", invalid: true
+      - else
+        = f.input :location, wrapper: :with_label, input_html: { maxlength: 40 }, hint: "For example 'London, UK' – be a little vague"
+    .fields-row__column.fields-group.fields-row__column-6{ :style => "margin-top: 23px;" }
+      = f.input :location_enabled, as: :boolean, wrapper: :with_label, label: 'Display location', hint: "Show in #{link_to 'locations', locations_path}".html_safe, recommended: true
+
+  .fields-row
+    .fields-row__column.fields-row__column-6
       = render 'application/card', account: @account
 
     .fields-row__column.fields-group.fields-row__column-6
@@ -28,6 +37,8 @@
 
   .fields-group
     = f.input :bot, as: :boolean, wrapper: :with_label, hint: t('simple_form.hints.defaults.bot')
+
+  .fields-group
 
   - if Setting.profile_directory
     .fields-group

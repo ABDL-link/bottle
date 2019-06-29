@@ -159,4 +159,7 @@ group :production do
 end
 
 gem 'concurrent-ruby', require: false
+
 gem 'connection_pool', require: false
+
+gem 'geocoder', '~> 1.5'
