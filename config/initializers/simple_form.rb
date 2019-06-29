@@ -16,8 +16,17 @@ module RecommendedComponent
   end
 end
 
+module InvalidComponent
+  def invalid(wrapper_options = nil)
+    return unless options[:invalid]
+    options[:label_text] = ->(raw_label_text, _required_label_text, _label_present) { safe_join([raw_label_text, ' ', content_tag(:span, 'Invalid', class: 'invalid')]) }
+    nil
+  end
+end
+
 SimpleForm.include_component(AppendComponent)
 SimpleForm.include_component(RecommendedComponent)
+SimpleForm.include_component(InvalidComponent)
 
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a
@@ -75,6 +84,7 @@ SimpleForm.setup do |config|
 
     b.wrapper tag: :div, class: :label_input do |ba|
       ba.optional :recommended
+      ba.optional :invalid
       ba.use :label
 
       ba.wrapper tag: :div, class: :label_input__wrapper do |bb|
