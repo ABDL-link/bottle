@@ -47,6 +47,10 @@
 #  suspended_at                  :datetime
 #  trust_level                   :integer
 #  hide_collections              :boolean
+#  location                      :string
+#  location_enabled              :boolean
+#  latitude                      :float
+#  longitude                     :float
 #  avatar_storage_schema_version :integer
 #  header_storage_schema_version :integer
 #  devices_url                   :string
@@ -89,6 +93,7 @@ class Account < ApplicationRecord
   validates_with UnreservedUsernameValidator, if: -> { local? && will_save_change_to_username? }
   validates :display_name, length: { maximum: 30 }, if: -> { local? && will_save_change_to_display_name? }
   validates :note, note_length: { maximum: 500 }, if: -> { local? && will_save_change_to_note? }
+  validates :location, length: { maximum: 40 }, if: -> { local? && will_save_change_to_location? }
   validates :fields, length: { maximum: 4 }, if: -> { local? && will_save_change_to_fields? }
 
   scope :remote, -> { where.not(domain: nil) }
@@ -115,6 +120,7 @@ class Account < ApplicationRecord
   scope :by_recent_sign_in, -> { order(Arel.sql('(case when users.current_sign_in_at is null then 1 else 0 end) asc, users.current_sign_in_at desc, accounts.id desc')) }
   scope :popular, -> { order('account_stats.followers_count desc') }
   scope :by_domain_and_subdomains, ->(domain) { where(domain: domain).or(where(arel_table[:domain].matches('%.' + domain))) }
+  scope :location_shown, -> { where(location_enabled: true).where.not(latitude: nil, longitude: nil) }
   scope :not_excluded_by_account, ->(account) { where.not(id: account.excluded_from_timeline_account_ids) }
   scope :not_domain_blocked_by_account, ->(account) { where(arel_table[:domain].eq(nil).or(arel_table[:domain].not_in(account.excluded_from_timeline_domains))) }
 
@@ -548,11 +554,43 @@ class Account < ApplicationRecord
   before_validation :prepare_username, on: :create
   before_destroy :clean_feed_manager
 
+  geocoded_by :location do |object, results|
+    if results.present?
+     object.latitude = results.first.latitude
+     object.longitude = results.first.longitude
+    else
+     object.latitude = nil
+     object.longitude = nil
+    end
+  end
+
+  after_validation :geocode,
+    :if => lambda{ |obj| obj.location_changed? }
+
+  def location_valid?
+    latitude.present? && longitude.present?
+  end
+
+  def location_shown?
+    location_enabled && location_valid?
+  end
+
+  def distance(user)
+    result = distance_to(user)
+
+    if result === 0
+      return '-'
+    else
+      "#{result.round} mi"
+    end
+  end
+
   private
 
   def prepare_contents
     display_name&.strip!
     note&.strip!
+    location&.strip!
   end
 
   def prepare_username
