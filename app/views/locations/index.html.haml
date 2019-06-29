@@ -59,14 +59,8 @@
           %p
             Showing nearest to
             %span{ :style => "font-weight:600;" }= @searched
-          - if current_account.location_valid?
-            %p
-              = link_to('Reset to ' + current_account.location, locations_path)
-        - elsif current_account.location_valid?
-          %p
-            Showing nearest to
-            %span{ :style => "font-weight:600;" }= current_account.location
-
+            - if current_account.location_valid?
+              (#{link_to('reset', locations_path)})
 
       .box-widget.notice-widget
 
