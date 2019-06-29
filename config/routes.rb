@@ -100,6 +100,8 @@ Rails.application.routes.draw do
   get '/explore', to: 'directories#index', as: :explore
   get '/explore/:id', to: 'directories#show', as: :explore_hashtag
 
+  get '/locations', to: 'locations#index'
+
   get '/settings', to: redirect('/settings/profile')
 
   namespace :settings do
