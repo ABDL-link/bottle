@@ -343,6 +343,13 @@
       .column-1 {
         display: none;
       }
+
+      .column-1.locations {
+        display: inline !important;
+        margin-top: 10px;
+        grid-row: 2;
+        grid-column: 1;
+      }
     }
   }
 
@@ -742,6 +749,19 @@
       padding: 20px;
       font-size: 14px;
       color: $darker-text-color;
+    }
+
+    &__location,
+    .roles {
+      padding: 20px 20px 0px 20px;
+      font-size: 14px;
+      color: $primary-text-color;
+      a {
+        display: inline-block;
+        color: $primary-text-color;
+        text-decoration: none;
+        font-weight: 600;
+      }
     }
 
     .roles {
