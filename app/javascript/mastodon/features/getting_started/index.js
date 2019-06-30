@@ -114,7 +114,7 @@ class GettingStarted extends ImmutablePureComponent {
       }
 
       navItems.push(
-        <ColumnLink key={i++} icon='map-marker' text='Locations' href='/locations' />
+        <ColumnLink key={i++} icon='map-marker' text='Locations' href='/locations' badge='new' />
       );
       height += 48;
 
@@ -131,7 +131,7 @@ class GettingStarted extends ImmutablePureComponent {
       height += 48;
 
       navItems.push(
-        <ColumnLink key={i++} icon='map-marker' text='Locations' href='/locations' />
+        <ColumnLink key={i++} icon='map-marker' text='Locations' href='/locations' badge='new' />
       );
       height += 48;
     }
@@ -157,6 +157,13 @@ class GettingStarted extends ImmutablePureComponent {
 
       height += 34 + 48;
     }
+
+    navItems.push(
+      <ColumnSubheading key={i++} text='External' />,
+      <ColumnLink key={i++} icon='pencil' text='Write' href='https://write.abdl.link' />,
+      <ColumnLink key={i++} icon='gamepad' text='Minecraft' href='/minecraft' />,
+    );
+    height += 48 * 2 + 34;
 
     return (
       <Column bindToDocument={!multiColumn} label={intl.formatMessage(messages.menu)}>
