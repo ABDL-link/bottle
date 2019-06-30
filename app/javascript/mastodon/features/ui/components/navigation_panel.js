@@ -28,10 +28,15 @@ const NavigationPanel = () => (
     <a className='column-link column-link--transparent' href='/settings/preferences'><Icon className='column-link__icon' id='cog' fixedWidth /><FormattedMessage id='navigation_bar.preferences' defaultMessage='Preferences' /></a>
     <a className='column-link column-link--transparent' href='/relationships'><Icon className='column-link__icon' id='users' fixedWidth /><FormattedMessage id='navigation_bar.follows_and_followers' defaultMessage='Follows and followers' /></a>
     {!!profile_directory && <a className='column-link column-link--transparent' href='/explore'><Icon className='column-link__icon' id='address-book-o' fixedWidth /><FormattedMessage id='navigation_bar.profile_directory' defaultMessage='Profile directory' /></a>}
-    <a className='column-link column-link--transparent' href='/locations'><Icon className='column-link__icon' id='map-marker' fixedWidth />Locations</a>
+    <a className='column-link column-link--transparent' href='/locations'><Icon className='column-link__icon' id='map-marker' fixedWidth />Locations<span class='column-link__badge'>New</span></a>
 
     {showTrends && <div className='flex-spacer' />}
     {showTrends && <TrendsContainer />}
+
+    <hr />
+
+    <a className='column-link column-link--transparent' href='https://write.abdl.link'><Icon className='column-link__icon' id='pencil' fixedWidth />Write</a>
+    <a className='column-link column-link--transparent' href='/minecraft'><Icon className='column-link__icon' id='gamepad' fixedWidth />Minecraft</a>
   </div>
 );
 
