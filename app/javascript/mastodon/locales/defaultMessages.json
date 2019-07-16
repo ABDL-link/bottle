@@ -813,6 +813,10 @@
         "id": "navigation_bar.favourites"
       },
       {
+        "defaultMessage": "Locations",
+        "id": "navigation_bar.locations"
+      },
+      {
         "defaultMessage": "Lists",
         "id": "navigation_bar.lists"
       },
