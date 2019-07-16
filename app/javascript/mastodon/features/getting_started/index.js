@@ -35,6 +35,7 @@ const messages = defineMessages({
   security: { id: 'navigation_bar.security', defaultMessage: 'Security' },
   menu: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
   profile_directory: { id: 'getting_started.directory', defaultMessage: 'Profile directory' },
+  locations: { id: 'getting_started.locations', defaultMessage: 'Locations' },
 });
 
 const mapStateToProps = state => ({
@@ -114,7 +115,7 @@ class GettingStarted extends ImmutablePureComponent {
       }
 
       navItems.push(
-        <ColumnLink key={i++} icon='map-marker' text='Locations' href='/locations' badge='new' />
+        <ColumnLink key={i++} icon='map-marker' text={intl.formatMessage(messages.locations)} href='/locations' badge='new' />
       );
       height += 48;
 
@@ -131,7 +132,7 @@ class GettingStarted extends ImmutablePureComponent {
       height += 48;
 
       navItems.push(
-        <ColumnLink key={i++} icon='map-marker' text='Locations' href='/locations' badge='new' />
+        <ColumnLink key={i++} icon='map-marker' text={intl.formatMessage(messages.locations)} href='/locations' badge='new' />
       );
       height += 48;
     }
