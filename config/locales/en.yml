@@ -355,6 +355,7 @@ en:
       week_users_active: active this week
       week_users_new: users this week
       whitelist_mode: Limited federation mode
+      locations_shown: locations shown
     domain_allows:
       add_new: Allow federation with domain
       created_msg: Domain has been successfully allowed for federation
@@ -776,6 +777,34 @@ en:
     directory: Profile directory
     explanation: Discover users based on their interests
     explore_mastodon: Explore %{title}
+  domain_blocks:
+    blocked_domains: List of limited and blocked domains
+    description: This is the list of servers that %{instance} limits or reject federation with.
+    domain: Domain
+    media_block: Media block
+    no_domain_blocks: "(No domain blocks)"
+    severity: Severity
+    severity_legend:
+      media_block: Media files coming from the server are neither fetched, stored, or displayed to the user.
+      silence: Accounts from silenced servers can be found, followed and interacted with, but their toots will not appear in the public timelines, and notifications from them will not reach local users who are not following them.
+      suspension: No content from suspended servers is stored or displayed, nor is any content sent to them. Interactions from suspended servers are ignored.
+      suspension_disclaimer: Suspended servers may occasionally retrieve public content from this server.
+      title: Severities
+    show_rationale: Show rationale
+    silence: Silence
+    suspension: Suspension
+    title: "%{instance} List of blocked instances"
+  locations:
+    locations: Locations
+    explanation: Discover users based on their distance
+    explore_mastodon: Explore %{title}
+    location: location
+    distance: distance
+    nearest_to: Showing nearest to
+    search: Search location
+    reset: reset
+    not_shown: Your profile is not being shown!
+    shown: "Your profile location (%{location}) is being shown"
   domain_validator:
     invalid_domain: is not a valid domain name
   errors:
