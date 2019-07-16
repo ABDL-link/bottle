@@ -265,6 +265,12 @@ en:
       week_interactions: interactions this week
       week_users_active: active this week
       week_users_new: users this week
+      locations_shown: locations shown
+    domain_allows:
+      add_new: Whitelist domain
+      created_msg: Domain has been successfully whitelisted
+      destroyed_msg: Domain has been removed from the whitelist
+      undo: Remove from whitelist
     domain_blocks:
       add_new: Add new domain block
       created_msg: Domain block is now being processed
@@ -588,8 +594,22 @@ en:
     people:
       one: "%{count} person"
       other: "%{count} people"
+<<<<<<< HEAD
   domain_validator:
     invalid_domain: is not a valid domain name
+=======
+  locations:
+    locations: Locations
+    explanation: Discover users based on their distance
+    explore_mastodon: Explore %{title}
+    location: location
+    distance: distance
+    nearest_to: Showing nearest to
+    search: Search location
+    reset: reset
+    not_shown: Your profile is not being shown!
+    shown: "Your profile location (%{location}) is being shown"
+>>>>>>> f7c5ba805... Localising the locations feature
   errors:
     '403': You don't have permission to view this page.
     '404': The page you are looking for isn't here.
