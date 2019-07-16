@@ -277,6 +277,7 @@ en:
       week_users_active: active this week
       week_users_new: users this week
       whitelist_mode: Whitelist mode
+      locations_shown: locations shown
     domain_allows:
       add_new: Whitelist domain
       created_msg: Domain has been successfully whitelisted
@@ -662,6 +663,17 @@ en:
     silence: Silence
     suspension: Suspension
     title: "%{instance} List of blocked instances"
+  locations:
+    locations: Locations
+    explanation: Discover users based on their distance
+    explore_mastodon: Explore %{title}
+    location: location
+    distance: distance
+    nearest_to: Showing nearest to
+    search: Search location
+    reset: reset
+    not_shown: Your profile is not being shown!
+    shown: "Your profile location (%{location}) is being shown"
   domain_validator:
     invalid_domain: is not a valid domain name
   errors:
