@@ -21,7 +21,7 @@ module Mastodon
     end
 
     def suffix
-      'bottle'
+      '+bottle'
     end
 
     def to_a
