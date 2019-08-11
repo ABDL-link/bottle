@@ -1,4 +1,14 @@
-# ABDL.link Mastodon fork
+# Bottle
+
+**A Mastodon fork for ABDL.link**
+
+## Differences with tootsuite/mastodon
+
+- [All media from us is marked as sensitive](https://github.com/ABDL-link/bottle/commit/53351026385b52bfe394dde737674e3594d8a8bf)
+- [Six poll options instead of four](https://github.com/ABDL-link/bottle/commit/8dacb1ab68c4dc77943c0845b8cb7ecda7840da2)
+- [100% black theme (beta)](https://github.com/ABDL-link/bottle/commit/4a9e01f9c9c2e23796ae525aa976bac94d23cc76)
+- [User locations directory](https://github.com/ABDL-link/bottle/commit/3d53f1ddc3997a2d42f83a8d3e9220fed2b443f7)
+- Various wording changes specifically for ABDL.link users
 
 ## License
 
