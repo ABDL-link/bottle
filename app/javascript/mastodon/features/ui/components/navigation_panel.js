@@ -30,13 +30,14 @@ const NavigationPanel = () => (
     {!!profile_directory && <a className='column-link column-link--transparent' href='/explore'><Icon className='column-link__icon' id='address-book-o' fixedWidth /><FormattedMessage id='navigation_bar.profile_directory' defaultMessage='Profile directory' /></a>}
     <a className='column-link column-link--transparent' href='/locations'><Icon className='column-link__icon' id='map-marker' fixedWidth /><FormattedMessage id='navigation_bar.location7s' defaultMessage='Locations' /><span class='column-link__badge'>new</span></a>
 
-    {showTrends && <div className='flex-spacer' />}
-    {showTrends && <TrendsContainer />}
-
     <hr />
 
     <a className='column-link column-link--transparent' href='https://write.abdl.link'><Icon className='column-link__icon' id='pencil' fixedWidth />Write</a>
     <a className='column-link column-link--transparent' href='/minecraft'><Icon className='column-link__icon' id='gamepad' fixedWidth />Minecraft</a>
+
+    {showTrends && <div className='flex-spacer' />}
+    {showTrends && <TrendsContainer />}
+
   </div>
 );
 
