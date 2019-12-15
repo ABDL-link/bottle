@@ -123,6 +123,8 @@ class AccountsController < ApplicationController
       short_account_media_url(@account, max_id: max_id, min_id: min_id)
     elsif replies_requested?
       short_account_with_replies_url(@account, max_id: max_id, min_id: min_id)
+    elsif archive_requested?
+      short_account_archive_url(@account, max_id: max_id, min_id: min_id)
     else
       short_account_url(@account, max_id: max_id, min_id: min_id)
     end
@@ -130,6 +132,10 @@ class AccountsController < ApplicationController
 
   def media_requested?
     request.path.ends_with?('/media') && !tag_requested?
+  end
+
+  def archive_requested?
+    request.path.ends_with?('/archive') && !tag_requested?
   end
 
   def replies_requested?
