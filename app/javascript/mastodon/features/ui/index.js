@@ -29,7 +29,6 @@ import {
   CommunityTimeline,
   AccountTimeline,
   AccountGallery,
-  ArchiveGallery,
   HomeTimeline,
   Followers,
   Following,
