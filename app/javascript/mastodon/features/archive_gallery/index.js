@@ -9,7 +9,7 @@ import Column from '../ui/components/column';
 import ColumnBackButton from 'mastodon/components/column_back_button';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { getAccountGallery } from 'mastodon/selectors';
-import MediaItem from '../account_gallery/components/media_item';
+//import MediaItem from '../account_gallery/components/media_item';
 import DetailedStatusContainer from 'mastodon/features/status/containers/detailed_status_container';
 import HeaderContainer from '../account_timeline/containers/header_container';
 import { ScrollContainer } from 'react-router-scroll-4';

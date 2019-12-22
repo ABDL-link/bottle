@@ -79,7 +79,6 @@ Rails.application.routes.draw do
   get '/@:username', to: 'accounts#show', as: :short_account
   get '/@:username/with_replies', to: 'accounts#show', as: :short_account_with_replies
   get '/@:username/media', to: 'accounts#show', as: :short_account_media
-  get '/@:username/archive', to: 'accounts#show', as: :short_account_archive
   get '/@:username/tagged/:tag', to: 'accounts#show', as: :short_account_tag
   get '/@:account_username/:id', to: 'statuses#show', as: :short_account_status
   get '/@:account_username/:id/embed', to: 'statuses#embed', as: :embed_short_account_status
@@ -89,6 +88,7 @@ Rails.application.routes.draw do
 
   get '/explore', to: 'directories#index', as: :explore
   get '/explore/:id', to: 'directories#show', as: :explore_hashtag
+  get '/archive', to: 'archive#index'
 
   get '/settings', to: redirect('/settings/profile')
 
