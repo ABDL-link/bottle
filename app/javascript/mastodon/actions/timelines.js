@@ -106,6 +106,7 @@ export function expandTimeline(timelineId, path, params = {}, done = noOp) {
   };
 };
 
+export const expandArchiveTimeline         = ({ maxId } = {}, done = noOp) => expandTimeline('archive', '/api/v1/timelines/archive', { max_id: maxId }, done);
 export const expandHomeTimeline            = ({ maxId } = {}, done = noOp) => expandTimeline('home', '/api/v1/timelines/home', { max_id: maxId }, done);
 export const expandPublicTimeline          = ({ maxId, onlyMedia } = {}, done = noOp) => expandTimeline(`public${onlyMedia ? ':media' : ''}`, '/api/v1/timelines/public', { max_id: maxId, only_media: !!onlyMedia }, done);
 export const expandCommunityTimeline       = ({ maxId, onlyMedia } = {}, done = noOp) => expandTimeline(`community${onlyMedia ? ':media' : ''}`, '/api/v1/timelines/public', { local: true, max_id: maxId, only_media: !!onlyMedia }, done);

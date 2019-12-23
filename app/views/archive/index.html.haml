@@ -3,6 +3,7 @@
 
 - content_for :header_tags do
   %meta{ name: 'description', content: t('directories.explanation') }
+  = javascript_pack_tag 'about', integrity: true, crossorigin: 'anonymous'
 
   = opengraph 'og:site_name', t('about.hosted_on', domain: site_hostname)
   = opengraph 'og:type', 'website'
@@ -13,7 +14,6 @@
 .page-header
   %h1= 'Archive'
 
-.grid
-  .column-0
-    = react_component :ArchiveGallery
+#mastodon-timeline{ data: { props: Oj.dump(default_props) }}
+#modal-container
 

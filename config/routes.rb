@@ -285,6 +285,7 @@ Rails.application.routes.draw do
       end
 
       namespace :timelines do
+        resource :archive, only: :index, controller: :archive
         resource :home, only: :show, controller: :home
         resource :public, only: :show, controller: :public
         resources :tag, only: :show
