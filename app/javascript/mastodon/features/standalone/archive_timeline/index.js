@@ -5,7 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { expandArchiveTimeline } from 'mastodon/actions/timelines';
 import Masonry from 'react-masonry-infinite';
 import { List as ImmutableList, Map as ImmutableMap } from 'immutable';
-import DetailedStatusContainer from 'mastodon/features/status/containers/detailed_status_container';
+import ArchivedStatusContainer from 'mastodon/features/status/containers/archived_status_container';
 import { debounce } from 'lodash';
 import LoadingIndicator from 'mastodon/components/loading_indicator';
 
@@ -81,7 +81,7 @@ class ArchiveTimeline extends React.PureComponent {
       <Masonry ref={this.setRef} className='statuses-grid' hasMore={hasMore} loadMore={this.handleLoadMore} sizes={sizes} loader={loader}>
         {statusIds.map(statusId => (
           <div className='statuses-grid__item' key={statusId}>
-            <DetailedStatusContainer
+            <ArchivedStatusContainer
               id={statusId}
               compact
               measureHeight
