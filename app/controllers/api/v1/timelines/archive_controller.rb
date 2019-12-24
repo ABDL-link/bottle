@@ -26,7 +26,7 @@ class Api::V1::Timelines::ArchiveController < Api::BaseController
       params_slice(:max_id, :since_id, :min_id)
     )
 
-    status_ids = statuses.joins(:media_attachments).distinct(:id).pluck(:id)
+    status_ids = statuses.joins(:media_attachments).pluck(:id)
     statuses.where(id: status_ids)
   end
 

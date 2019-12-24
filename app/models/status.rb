@@ -283,7 +283,7 @@ class Status < ApplicationRecord
     end
 
     def as_my_timeline(account)
-      where(account: [account])
+      where(account: account)
     end
 
     def as_tag_timeline(tag, account = nil, local_only = false)
