@@ -3,7 +3,7 @@
 
 - content_for :header_tags do
   %meta{ name: 'description', content: t('directories.explanation') }
-  = javascript_pack_tag 'about', integrity: true, crossorigin: 'anonymous'
+  = javascript_pack_tag 'archive', integrity: true, crossorigin: 'anonymous'
 
   = opengraph 'og:site_name', t('about.hosted_on', domain: site_hostname)
   = opengraph 'og:type', 'website'
