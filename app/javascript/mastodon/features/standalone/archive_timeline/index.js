@@ -9,8 +9,8 @@ import ArchivedStatusContainer from 'mastodon/features/status/containers/archive
 import { debounce } from 'lodash';
 import LoadingIndicator from 'mastodon/components/loading_indicator';
 
-const mapStateToProps = (state, { local }) => {
-  const timeline = state.getIn(['timelines', local ? 'community' : 'public'], ImmutableMap());
+const mapStateToProps = (state) => {
+  const timeline = state.getIn(['timelines', 'archive'], ImmutableMap());
 
   return {
     statusIds: timeline.get('items', ImmutableList()),
@@ -78,9 +78,9 @@ class ArchiveTimeline extends React.PureComponent {
     const loader = (isLoading && statusIds.isEmpty()) ? <LoadingIndicator key={0} /> : undefined;
 
     return (
-      <Masonry ref={this.setRef} className='statuses-grid' hasMore={hasMore} loadMore={this.handleLoadMore} sizes={sizes} loader={loader}>
+      <Masonry ref={this.setRef} className='archive-statuses-grid' hasMore={hasMore} loadMore={this.handleLoadMore} sizes={sizes} loader={loader}>
         {statusIds.map(statusId => (
-          <div className='statuses-grid__item' key={statusId}>
+          <div className='archive-statuses-grid__item' key={statusId}>
             <ArchivedStatusContainer
               id={statusId}
               compact

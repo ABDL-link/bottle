@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Avatar from '../../../components/avatar';
-import DisplayName from '../../../components/display_name';
 import StatusContent from '../../../components/status_content';
 import MediaGallery from '../../../components/media_gallery';
 import { Link } from 'react-router-dom';
@@ -14,7 +12,7 @@ import scheduleIdleTask from '../../ui/util/schedule_idle_task';
 import classNames from 'classnames';
 import Icon from 'mastodon/components/icon';
 
-export default class DetailedStatus extends ImmutablePureComponent {
+export default class ArchivedStatus extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -143,7 +141,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
     }
 
     if (status.get('application')) {
-      applicationLink = <span> · <a className='detailed-status__application' href={status.getIn(['application', 'website'])} target='_blank' rel='noopener'>{status.getIn(['application', 'name'])}</a></span>;
+      applicationLink = <span> · <a className='archived-status__application' href={status.getIn(['application', 'website'])} target='_blank' rel='noopener'>{status.getIn(['application', 'name'])}</a></span>;
     }
 
     if (status.get('visibility') === 'direct') {
@@ -156,18 +154,18 @@ export default class DetailedStatus extends ImmutablePureComponent {
       reblogLink = <Icon id={reblogIcon} />;
     } else if (this.context.router) {
       reblogLink = (
-        <Link to={`/statuses/${status.get('id')}/reblogs`} className='detailed-status__link'>
+        <Link to={`/statuses/${status.get('id')}/reblogs`} className='archived-status__link'>
           <Icon id={reblogIcon} />
-          <span className='detailed-status__reblogs'>
+          <span className='archived-status__reblogs'>
             <FormattedNumber value={status.get('reblogs_count')} />
           </span>
         </Link>
       );
     } else {
       reblogLink = (
-        <a href={`/interact/${status.get('id')}?type=reblog`} className='detailed-status__link' onClick={this.handleModalLink}>
+        <a href={`/interact/${status.get('id')}?type=reblog`} className='archived-status__link' onClick={this.handleModalLink}>
           <Icon id={reblogIcon} />
-          <span className='detailed-status__reblogs'>
+          <span className='archived-status__reblogs'>
             <FormattedNumber value={status.get('reblogs_count')} />
           </span>
         </a>
@@ -176,18 +174,18 @@ export default class DetailedStatus extends ImmutablePureComponent {
 
     if (this.context.router) {
       favouriteLink = (
-        <Link to={`/statuses/${status.get('id')}/favourites`} className='detailed-status__link'>
+        <Link to={`/statuses/${status.get('id')}/favourites`} className='archived-status__link'>
           <Icon id='star' />
-          <span className='detailed-status__favorites'>
+          <span className='archived-status__favorites'>
             <FormattedNumber value={status.get('favourites_count')} />
           </span>
         </Link>
       );
     } else {
       favouriteLink = (
-        <a href={`/interact/${status.get('id')}?type=favourite`} className='detailed-status__link' onClick={this.handleModalLink}>
+        <a href={`/interact/${status.get('id')}?type=favourite`} className='archived-status__link' onClick={this.handleModalLink}>
           <Icon id='star' />
-          <span className='detailed-status__favorites'>
+          <span className='archived-status__favorites'>
             <FormattedNumber value={status.get('favourites_count')} />
           </span>
         </a>
@@ -196,14 +194,14 @@ export default class DetailedStatus extends ImmutablePureComponent {
 
     return (
       <div style={outerStyle}>
-        <div ref={this.setRef} className={classNames('detailed-status', { compact })}>
+        <div ref={this.setRef} className={classNames('archived-status', { compact })}>
 
           <StatusContent status={status} expanded={!status.get('hidden')} onExpandedToggle={this.handleExpandedToggle} />
 
           {media}
 
-          <div className='detailed-status__meta'>
-            <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener'>
+          <div className='archived-status__meta'>
+            <a className='archived-status__datetime' href={status.get('url')} target='_blank' rel='noopener'>
               <FormattedDate value={new Date(status.get('created_at'))} hour12={false} year='numeric' month='short' day='2-digit' hour='2-digit' minute='2-digit' />
             </a>{applicationLink} · {reblogLink} · {favouriteLink}
           </div>

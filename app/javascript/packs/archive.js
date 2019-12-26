@@ -4,7 +4,7 @@ import { start } from '../mastodon/common';
 start();
 
 function loaded() {
-  const ArchiveContainer = require('../mastodon/containers/archive_container').default;
+  const ArchiveContainer  = require('../mastodon/containers/archive_container').default;
   const React             = require('react');
   const ReactDOM          = require('react-dom');
   const mountNode         = document.getElementById('mastodon-timeline');
