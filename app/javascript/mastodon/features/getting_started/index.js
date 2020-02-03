@@ -169,7 +169,6 @@ class GettingStarted extends ImmutablePureComponent {
     navItems.push(
       <ColumnSubheading key={i++} text='External' />,
       <ColumnLink key={i++} icon='pencil' text='Write' href='https://write.abdl.link' />,
-      <ColumnLink key={i++} icon='gamepad' text='Minecraft' href='/minecraft' />,
     );
     height += 48 * 2 + 34;
 
