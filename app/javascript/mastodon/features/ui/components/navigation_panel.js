@@ -32,7 +32,6 @@ const NavigationPanel = () => (
     <hr />
 
     <a className='column-link column-link--transparent' href='https://write.abdl.link'><Icon className='column-link__icon' id='pencil' fixedWidth />Write</a>
-    <a className='column-link column-link--transparent' href='/minecraft'><Icon className='column-link__icon' id='gamepad' fixedWidth />Minecraft</a>
 
     {showTrends && <div className='flex-spacer' />}
     {showTrends && <TrendsContainer />}
