@@ -18,11 +18,7 @@ en:
     contact_unavailable: N/A
     discover_users: Discover users
     documentation: Documentation
-    extended_description_html: |
-      <h3>A good place for rules</h3>
-      <p>The extended description has not been set up yet.</p>
     federation_hint_html: This instance is for people who are into age play, adult babies, and diapers. With an account on %{instance} you'll be able to follow people on any Mastodon server and beyond.
-    generic_description: "%{domain} is one server in the network"
     get_apps: Try a mobile app
     hosted_on: Mastodon hosted on %{domain}
     instance_actor_flash: |
@@ -713,7 +709,6 @@ en:
     apply_for_account: Request an invite
     change_password: Password
     checkbox_agreement_html: I'm 18+ and I agree to the <a href="%{rules_path}" target="_blank">server rules</a> and <a href="%{terms_path}" target="_blank">terms of service</a>
-    confirm_email: Confirm email
     delete_account: Delete account
     delete_account_html: If you wish to delete your account, you can <a href="%{path}">proceed here</a>. You will be asked for confirmation.
     description:
@@ -812,23 +807,6 @@ en:
     directory: Profile directory
     explanation: Discover users based on their interests
     explore_mastodon: Explore %{title}
-  domain_blocks:
-    blocked_domains: List of limited and blocked domains
-    description: This is the list of servers that %{instance} limits or reject federation with.
-    domain: Domain
-    media_block: Media block
-    no_domain_blocks: "(No domain blocks)"
-    severity: Severity
-    severity_legend:
-      media_block: Media files coming from the server are neither fetched, stored, or displayed to the user.
-      silence: Accounts from silenced servers can be found, followed and interacted with, but their toots will not appear in the public timelines, and notifications from them will not reach local users who are not following them.
-      suspension: No content from suspended servers is stored or displayed, nor is any content sent to them. Interactions from suspended servers are ignored.
-      suspension_disclaimer: Suspended servers may occasionally retrieve public content from this server.
-      title: Severities
-    show_rationale: Show rationale
-    silence: Silence
-    suspension: Suspension
-    title: "%{instance} List of blocked instances"
   domain_validator:
     invalid_domain: is not a valid domain name
   errors:
