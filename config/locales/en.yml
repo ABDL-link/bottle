@@ -355,6 +355,7 @@ en:
       feature_timeline_preview: Timeline preview
       features: Features
       hidden_service: Federation with hidden services
+      locations_shown: locations shown
       open_reports: open reports
       pending_tags: hashtags waiting for review
       pending_users: users waiting for review
@@ -809,17 +810,6 @@ en:
     silence: Silence
     suspension: Suspension
     title: "%{instance} List of blocked instances"
-  locations:
-    locations: Locations
-    explanation: Discover users based on their distance
-    explore_mastodon: Explore %{title}
-    location: location
-    distance: distance
-    nearest_to: Showing nearest to
-    search: Search location
-    reset: reset
-    not_shown: Your profile is not being shown!
-    shown: "Your profile location (%{location}) is being shown"
   domain_validator:
     invalid_domain: is not a valid domain name
   errors:
@@ -955,6 +945,17 @@ en:
   lists:
     errors:
       limit: You have reached the maximum amount of lists
+  locations:
+    distance: distance
+    explanation: Discover users based on their distance
+    explore_mastodon: Explore %{title}
+    location: location
+    locations: Locations
+    nearest_to: Showing nearest to
+    not_shown: Your profile is not being shown!
+    reset: reset
+    search: Search location
+    shown: Your profile location (%{location}) is being shown
   media_attachments:
     validations:
       images_and_video: Cannot attach a video to a status that already contains images
@@ -1317,10 +1318,10 @@ en:
       <p>Originally adapted from the <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
     title: "%{instance} Terms of Service and Privacy Policy"
   themes:
+    ablink-black: ABDL.link (black) beta
     contrast: High contrast
     default: Mastodon
     mastodon-light: Mastodon (light)
-    ablink-black: ABDL.link (black) beta
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
