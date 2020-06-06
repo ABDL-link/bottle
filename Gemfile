@@ -149,6 +149,7 @@ group :development do
   gem 'capistrano-yarn', '~> 2.0'
 
   gem 'stackprof'
+  gem 'awesome_print'
 end
 
 group :production do
