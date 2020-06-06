@@ -34,7 +34,7 @@
                 %td= account_link_to account
                 - if @location
                   %td.accounts-table__count
-                    = account.distance(@location)
+                    = number_to_human(account.distance_to(@location, @units), units: { unit: @units }, format: "%n %u" )
                     %small= t('locations.distance')
                 %td.accounts-table__count
                   = account.location

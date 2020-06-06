@@ -31,6 +31,7 @@ class Settings::PreferencesController < Settings::BaseController
   def user_params
     params.require(:user).permit(
       :locale,
+      :distance_units,
       chosen_languages: []
     )
   end

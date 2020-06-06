@@ -8,6 +8,7 @@ class LocationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @units = @current_user.distance_units.to_sym
     @searched = params[:q][:location] if params[:q]
     if @searched.present?
       locations = Geocoder.search(params[:q][:location])
@@ -20,7 +21,6 @@ class LocationsController < ApplicationController
       @location = current_account
     end
 
-    render :index
   end
 
   def accounts

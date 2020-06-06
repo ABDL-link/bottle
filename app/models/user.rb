@@ -38,6 +38,7 @@
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
+#  distance_units            :string           default("mi")
 #
 
 class User < ApplicationRecord
@@ -52,6 +53,9 @@ class User < ApplicationRecord
   # RegenerationWorker jobs that need to be run when those people come
   # to check their feed
   ACTIVE_DURATION = ENV.fetch('USER_ACTIVE_DAYS', 7).to_i.days.freeze
+
+  # Allowed distance units
+  DISTANCE_UNITS = %w(km mi nm)
 
   devise :two_factor_authenticatable,
          otp_secret_encryption_key: Rails.configuration.x.otp_secret
@@ -80,6 +84,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :invite_request, reject_if: ->(attributes) { attributes['text'].blank? }
 
   validates :locale, inclusion: I18n.available_locales.map(&:to_s), if: :locale?
+  validates :distance_units, inclusion: DISTANCE_UNITS, allow_nil: true
   validates_with BlacklistedEmailValidator, on: :create
   validates_with EmailMxValidator, if: :validate_email_dns?
   validates :agreement, acceptance: { allow_nil: false, accept: [true, 'true', '1'] }, on: :create

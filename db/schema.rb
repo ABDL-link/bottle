@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_202420) do
+ActiveRecord::Schema.define(version: 2020_06_06_143950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -823,6 +823,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_202420) do
     t.string "chosen_languages", array: true
     t.bigint "created_by_application_id"
     t.boolean "approved", default: true, null: false
+    t.string "distance_units", default: "mi"
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_by_application_id"], name: "index_users_on_created_by_application_id"
