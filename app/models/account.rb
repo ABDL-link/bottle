@@ -547,16 +547,6 @@ class Account < ApplicationRecord
     location_enabled && location_valid?
   end
 
-  def distance(user)
-    result = distance_to(user)
-
-    if result === 0
-      return '-'
-    else
-      "#{result.round} mi"
-    end
-  end
-
   private
 
   def prepare_contents
