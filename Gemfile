@@ -162,4 +162,4 @@ gem 'concurrent-ruby', require: false
 
 gem 'connection_pool', require: false
 
-gem 'geocoder', '~> 1.5'
+gem 'geocoder', '~> 1.6'
