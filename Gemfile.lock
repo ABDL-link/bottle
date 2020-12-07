@@ -308,7 +308,7 @@ GEM
     idn-ruby (0.1.0)
     ipaddress (0.8.3)
     iso-639 (0.2.8)
-    jaro_winkler (1.5.3)
+    jaro_winkler (1.5.4)
     jmespath (1.4.0)
     json (2.2.0)
     json-canonicalization (0.1.0)
