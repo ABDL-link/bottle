@@ -374,7 +374,7 @@ GEM
     net-ldap (0.16.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (5.0.2)
+    net-ssh (6.1.0)
     nio4r (2.4.0)
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
