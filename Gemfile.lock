@@ -218,7 +218,7 @@ GEM
       elasticsearch-transport (= 6.0.2)
     elasticsearch-api (6.0.2)
       multi_json
-    elasticsearch-dsl (0.1.5)
+    elasticsearch-dsl (0.1.9)
     elasticsearch-transport (6.0.2)
       faraday
       multi_json
