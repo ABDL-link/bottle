@@ -30,7 +30,7 @@ jobs:
           flavor: |
             latest=auto
           tags: |
-            type=edge,branch=main
+            type=edge,branch=stable-3.5.3
             type=match,pattern=v(.*),group=0
             type=ref,event=pr
       - uses: docker/build-push-action@v3
