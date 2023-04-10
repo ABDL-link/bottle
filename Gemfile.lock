@@ -184,7 +184,7 @@ GEM
       activesupport
     cbor (0.5.9.6)
     charlock_holmes (0.7.7)
-    chewy (7.2.7)
+    chewy (7.3.0)
       activesupport (>= 5.2)
       elasticsearch (>= 7.12.0, < 7.14.0)
       elasticsearch-dsl
@@ -416,7 +416,7 @@ GEM
     mime-types-data (3.2022.0105)
     mini_mime (1.1.2)
     mini_portile2 (2.8.1)
-    minitest (5.17.0)
+    minitest (5.18.0)
     msgpack (1.6.0)
     multi_json (1.15.0)
     multipart-post (2.3.0)
@@ -791,7 +791,7 @@ DEPENDENCIES
   capistrano-yarn (~> 2.0)
   capybara (~> 3.38)
   charlock_holmes (~> 0.7.7)
-  chewy (~> 7.2)
+  chewy (~> 7.3)
   climate_control (~> 0.2)
   cocoon (~> 1.2)
   color_diff (~> 0.1)
