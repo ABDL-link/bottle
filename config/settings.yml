@@ -16,7 +16,12 @@ defaults: &defaults
   min_invite_role: 'admin'
   timeline_preview: true
   show_staff_badge: true
-  default_sensitive: false
+  default_sensitive: true
+  reduce_motion: false
+  disable_swiping: false
+  show_application: true
+  system_font_ui: false
+  noindex: true
   unfollow_modal: false
   boost_modal: false
   delete_modal: true
@@ -24,11 +29,6 @@ defaults: &defaults
   display_media: 'default'
   expand_spoilers: false
   preview_sensitive_media: false
-  reduce_motion: false
-  disable_swiping: false
-  show_application: true
-  system_font_ui: false
-  noindex: false
   theme: 'default'
   aggregate_reblogs: true
   advanced_layout: false

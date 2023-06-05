@@ -16,7 +16,8 @@ permissions:
 
 jobs:
   build-image:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
+    environment: prod
 
     concurrency:
       group: ${{ github.ref }}
@@ -46,9 +47,7 @@ jobs:
       - uses: docker/metadata-action@v4
         id: meta
         with:
-          images: |
-            tootsuite/mastodon
-            ghcr.io/mastodon/mastodon
+          images: emmaae/mastodon-ab
           flavor: |
             latest=auto
           tags: |
