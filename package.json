@@ -89,7 +89,7 @@
     "npmlog": "^7.0.1",
     "path-complete-extname": "^1.0.0",
     "pg": "^8.5.0",
-    "pg-connection-string": "^2.6.0",
+    "pg-connection-string": "^2.6.1",
     "postcss": "^8.4.24",
     "postcss-loader": "^4.3.0",
     "prop-types": "^15.8.1",
