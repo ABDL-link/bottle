@@ -19,6 +19,10 @@ module Mastodon
     def default_prerelease
       'beta2'
     end
+	
+	def suffix
+      '+bottle'
+    end
 
     def prerelease
       ENV['MASTODON_VERSION_PRERELEASE'].presence || default_prerelease
