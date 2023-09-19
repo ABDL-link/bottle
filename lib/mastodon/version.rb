@@ -26,6 +26,8 @@ module Mastodon
 
     def build_metadata
       ENV.fetch('MASTODON_VERSION_METADATA', nil)
+    def suffix
+      '+bottle'
     end
 
     def to_a
