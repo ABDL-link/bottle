@@ -26,6 +26,8 @@ module Mastodon
 
     def build_metadata
       ENV.fetch('MASTODON_VERSION_METADATA', nil)
+    end
+      
     def suffix
       '+bottle'
     end
@@ -46,7 +48,7 @@ module Mastodon
     end
 
     def repository
-      ENV.fetch('GITHUB_REPOSITORY', 'mastodon/mastodon')
+      ENV.fetch('GITHUB_REPOSITORY', 'ABDL-link/bottle')
     end
 
     def source_base_url
