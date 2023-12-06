@@ -11,7 +11,7 @@ on:
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       -
         name: Check out the repo
@@ -32,7 +32,7 @@ jobs:
         name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_User }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
@@ -42,6 +42,6 @@ jobs:
           file: ./docker/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/386
           push: true
-          tags: ${{ secrets.DOCKERHUB_User }}/mastodon-ab:${{ env.BRANCH_OR_MR_NAME }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mastodon-ab:${{ env.BRANCH_OR_MR_NAME }}
           build-args: |
             BRANCH=${{ env.BRANCH_OR_MR_NAME }}
