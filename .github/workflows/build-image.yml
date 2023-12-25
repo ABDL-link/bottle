@@ -91,7 +91,7 @@ jobs:
           flavor: |
             latest=${{ startsWith(github.ref, 'refs/tags/v4.1.') && 'auto' || 'false' }}
           tags: |
-            type=edge,branch=main
+            type=edge-arm,branch=main
             type=pep440,pattern={{raw}}
             type=pep440,pattern=v{{major}}.{{minor}}
             type=ref,event=pr
