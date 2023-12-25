@@ -16,9 +16,61 @@ permissions:
   packages: write
 
 jobs:
+  build-image-amd64:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: ['amd64']
+    environment: prod
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        if: github.repository == 'ABDL-link/bottle' && github.event_name != 'pull_request'
+
+      - name: Set up QEMU and Buildx
+        uses: docker/setup-qemu-action@v4
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v4
+        
+      - uses: docker/metadata-action@v4
+        id: meta
+        with:
+          images: emmaae/mastodon-ab
+          flavor: |
+            latest=${{ startsWith(github.ref, 'refs/tags/v4.1.') && 'auto' || 'false' }}
+          tags: |
+            type=edge,branch=main
+            type=pep440,pattern={{raw}}
+            type=pep440,pattern=v{{major}}.{{minor}}
+            type=ref,event=pr
+
+      - name: Generate version suffix
+        id: version_vars
+        if: github.repository == 'ABDL-link/bottle' && github.event_name == 'push' && github.ref_name == 'main'
+        run: |
+          echo mastodon_version_suffix=+edge-$(git rev-parse --short HEAD) >> $GITHUB_ENV
+
+      - name: Build and push Docker image for amd64
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          build-args: MASTODON_VERSION_SUFFIX=${{ steps.version_vars.outputs.mastodon_version_suffix }}
+          platforms: linux/amd64
+          builder: ${{ steps.buildx.outputs.name }}
+          push: ${{ github.repository == 'ABDL-link/bottle' && github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max  
   build-image:
     #runs-on: [self-hosted, linux, x64]
-    runs-on: self-hosted
+    runs-on: [self-hosted, linux, arm64]
     environment: prod
     steps:
       - uses: actions/checkout@v3
