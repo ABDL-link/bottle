@@ -1,14 +1,6 @@
 on:
   workflow_call:
     inputs:
-      platforms:
-        required: true
-        type: string
-      cache:
-        type: boolean
-        default: true
-      use_native_arm64_builder:
-        type: boolean
       push_to_images:
         type: string
       version_prerelease:
@@ -64,10 +56,9 @@ jobs:
             MASTODON_VERSION_METADATA=${{ inputs.version_metadata }}
           platforms: linux/amd64
           builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
-          push: ${{ inputs.push_to_images != '' }}
+          push: ${{ inputs.push_to_images != '' }}-amd64
           labels: ${{ steps.meta.outputs.labels }}
-          tags: |
-            ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-amd64
+          tags: ${{ steps.meta.outputs.tags }}
 
   publish_aarch64:
     concurrency: 
@@ -114,9 +105,8 @@ jobs:
           platforms: linux/arm64
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
-          push: ${{ inputs.push_to_images != '' }}
-          tags: |
-            ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-aarch64
+          push: ${{ inputs.push_to_images != '' }}-aarch64
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
   publish_manifest:
