@@ -27,15 +27,21 @@ jobs:
 
   build-image:
     needs: compute-suffix
-    uses: ./.github/workflows/build-container-image.yml
-    with:
-      platforms: linux/amd64,linux/arm64
-      use_native_arm64_builder: true
-      push_to_images: |
-        ghcr.io/mastodon/mastodon
-      version_metadata: ${{ needs.compute-suffix.outputs.metadata }}
-      flavor: |
-        latest=auto
-      tags: |
-        type=ref,event=pr
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+        - name: Get Repo Owner
+          id: get_repo_owner
+          run: echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" > $GITHUB_ENV
+
+        - uses: ./.github/workflows/build-container-image.yml
+          with:
+            platforms: linux/amd64,linux/arm64
+            use_native_arm64_builder: true
+            push_to_images: |
+              ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-aarch64
+            version_metadata: ${{ needs.compute-suffix.outputs.metadata }}
+            flavor: |
+              latest=auto
+            tags: |
+              type=ref,event=pr
+            secrets: inherit
