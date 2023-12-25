@@ -67,7 +67,7 @@ jobs:
     permissions:
       packages: write
 
-    runs-on: sg-arm
+    runs-on: ARM64
     steps:
       - uses: actions/checkout@master
         with:
