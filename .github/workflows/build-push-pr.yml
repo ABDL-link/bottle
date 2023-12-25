@@ -42,4 +42,3 @@ jobs:
         latest=auto
       tags: |
         type=ref,event=pr
-      secrets: inherit
