@@ -22,31 +22,25 @@ jobs:
       - id: version_vars
         run: |
           echo mastodon_version_metadata=pr-${{ github.event.pull_request.number }}-$(git rev-parse --short HEAD) >> $GITHUB_OUTPUT
+      - name: Get Repo Owner
+        uses: actions/checkout@v4
+      - id: get_repo_owner
+        run: |
+          echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
     outputs:
       metadata: ${{ steps.version_vars.outputs.mastodon_version_metadata }}
+      owner: ${{ steps.get_repo_owner.outputs.REPO_OWNER }}
 
   build-image:
     needs: compute-suffix
-    runs-on: ubuntu-latest
-    steps:
-    
-        - uses: actions/checkout@master
-          with:
-              repository: inlets/inlets-operator
-              path: "./"
-        
-        - name: Get Repo Owner
-          id: get_repo_owner
-          run: echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" > $GITHUB_ENV
-
-        - uses: ./.github/workflows/build-container-image.yml
-          with:
-            platforms: linux/amd64,linux/arm64
-            push_to_images: |
-              ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-aarch64
-            version_metadata: ${{ needs.compute-suffix.outputs.metadata }}
-            flavor: |
-              latest=auto
-            tags: |
-              type=ref,event=pr
-            secrets: inherit
+    uses: ./.github/workflows/build-container-image.yml
+    with:
+      platforms: linux/amd64,linux/arm64
+      push_to_images: |
+        ghcr.io/${{ needs.compute-suffix.outputs.owner }}/inlets-operator:${{ github.sha }}-aarch64
+      version_metadata: ${{ needs.compute-suffix.outputs.metadata }}
+      flavor: |
+        latest=auto
+      tags: |
+        type=ref,event=pr
+      secrets: inherit
