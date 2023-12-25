@@ -34,9 +34,9 @@ jobs:
         if: github.repository == 'ABDL-link/bottle' && github.event_name != 'pull_request'
 
       - name: Set up QEMU and Buildx
-        uses: docker/setup-qemu-action@v4
+        uses: docker/setup-qemu-action@v3
       - name: Set up Buildx
-        uses: docker/setup-buildx-action@v4
+        uses: docker/setup-buildx-action@v3
         
       - uses: docker/metadata-action@v4
         id: meta
