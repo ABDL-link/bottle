@@ -29,6 +29,12 @@ jobs:
     needs: compute-suffix
     runs-on: ubuntu-latest
     steps:
+    
+        - uses: actions/checkout@master
+          with:
+              repository: inlets/inlets-operator
+              path: "./"
+        
         - name: Get Repo Owner
           id: get_repo_owner
           run: echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" > $GITHUB_ENV
@@ -36,7 +42,6 @@ jobs:
         - uses: ./.github/workflows/build-container-image.yml
           with:
             platforms: linux/amd64,linux/arm64
-            use_native_arm64_builder: true
             push_to_images: |
               ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-aarch64
             version_metadata: ${{ needs.compute-suffix.outputs.metadata }}
