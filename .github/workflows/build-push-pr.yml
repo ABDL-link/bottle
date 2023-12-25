@@ -35,7 +35,6 @@ jobs:
     needs: compute-suffix
     uses: ./.github/workflows/build-container-image.yml
     with:
-      platforms: linux/amd64,linux/arm64
       push_to_images: |
         ghcr.io/${{ needs.compute-suffix.outputs.owner }}/inlets-operator:${{ github.sha }}-aarch64
       version_metadata: ${{ needs.compute-suffix.outputs.metadata }}
