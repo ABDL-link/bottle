@@ -48,18 +48,19 @@ jobs:
 
       - name: echo main docker path
         env:
-          MATRIX_CONTEXT: ${{inputs.push_to_images}}+${{steps.meta.outputs.labels}}+${{ steps.meta.outputs.tags }}
+          MATRIX_CONTEXT: ${{inputs.push_to_images}}+${{steps.meta.outputs.labels}}+${{ steps.meta.outputs.tags }}+${{ inputs.flavor }}
         run: echo "$MATRIX_CONTEXT"
 
       - name: Set Flavor for amd64
-        run: echo "FLAVOR=${{ inputs.flavor }}-amd64" >> $GITHUB_ENV
+        id: flavor
+        run: echo "FLAVOR0=${{ inputs.flavor }}-amd64" > $GITHUB_ENV
 
       - uses: docker/metadata-action@v4
         id: meta
         if: ${{ inputs.push_to_images != '' }}
         with:
           images: ${{ inputs.push_to_images }}
-          flavor: ${{ env.FLAVOR }}
+          flavor: ${{ github.FLAVOR0 }}
           tags: ${{ inputs.tags }}
           labels: ${{ inputs.labels }}
       
