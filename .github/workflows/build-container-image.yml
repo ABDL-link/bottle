@@ -58,7 +58,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
           push: ${{ inputs.push_to_images != '' }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ steps.meta.outputs.tags }}-amd64
+          tags: ${{ steps.meta.outputs.tags }}amd64
 
   publish_aarch64:
     concurrency: 
@@ -106,7 +106,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
           push: ${{ inputs.push_to_images != '' }}
-          tags: ${{ steps.meta.outputs.tags }}-aarch64
+          tags: ${{ steps.meta.outputs.tags }}aarch64
           labels: ${{ steps.meta.outputs.labels }}
 
   publish_manifest:
