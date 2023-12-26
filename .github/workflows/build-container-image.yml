@@ -163,7 +163,7 @@ jobs:
 
     - name: Create flavortag
       id: get_flavor_tag
-      run: echo "FLAVORTAG=$(echo ${{ needs.publish_aarch64.outputs.flavor}} | sed 's/-arm64$//')" >> $GITHUB_ENV
+      run: echo "FLAVORTAG=$(echo ${{ needs.publish_aarch64.outputs.tag}} | sed 's/-arm64$//')" >> $GITHUB_ENV
 
     - name: Create manifest
       run: |
