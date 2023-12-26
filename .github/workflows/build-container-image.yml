@@ -56,7 +56,7 @@ jobs:
         if: ${{ inputs.push_to_images != '' }}
         with:
           images: ${{ inputs.push_to_images }}
-          flavor: ${{ inputs.flavor }}-${{ matrix.platform }}
+          flavor: ${{ inputs.flavor }}-amd64
           tags: ${{ inputs.tags }}
           labels: ${{ inputs.labels }}
       
@@ -115,7 +115,7 @@ jobs:
         if: ${{ inputs.push_to_images != '' }}
         with:
           images: ${{ inputs.push_to_images }}
-          flavor: ${{ inputs.flavor }}-${{ matrix.platform }}
+          flavor: ${{ inputs.flavor }}-arm64
           tags: ${{ inputs.tags }}
           labels: ${{ inputs.labels }}
         
