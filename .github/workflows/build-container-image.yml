@@ -63,7 +63,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
           push: ${{ inputs.push_to_images != '' }}
-          tags: ${{ inputs.push_to_images }}:${{ steps.meta.outputs.tags }}-amd64
+          tags: ${{ inputs.push_to_images }}${{ steps.meta.outputs.tags }}-amd64
           labels: ${{ steps.meta.outputs.labels }}
 
   publish_aarch64:
@@ -113,7 +113,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
           push: ${{ inputs.push_to_images != '' }}
-          tags: ${{ inputs.push_to_images }}:${{ steps.meta.outputs.tags }}-arm64
+          tags: ${{ inputs.push_to_images }}${{ steps.meta.outputs.tags }}-arm64
           labels: ${{ steps.meta.outputs.labels }}
 
   publish_manifest:
