@@ -60,7 +60,8 @@ jobs:
         if: ${{ inputs.push_to_images != '' }}
         with:
           images: ${{ inputs.push_to_images }}
-          flavor: ${{ github.FLAVOR0 }}
+          flavor: |
+            suffix=amd64
           tags: ${{ inputs.tags }}
           labels: ${{ inputs.labels }}
       
