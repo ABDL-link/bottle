@@ -170,8 +170,6 @@ jobs:
         docker manifest create ${{ env.FLAVORTAG }}\
           --amend ${{ needs.publish_x86.outputs.tag }} \
           --amend ${{ needs.publish_aarch64.outputs.tag }}
-        docker manifest annotate --arch amd64 --os linux ${{ env.FLAVORTAG }} ${{ needs.publish_x86.outputs.tag }}
-        docker manifest annotate --arch arm64 --os linux ${{ env.FLAVORTAG }} ${{ needs.publish_aarch64.outputs.tag}}
         docker manifest inspect ${{ env.FLAVORTAG }}
 
         docker manifest push ${{ env.FLAVORTAG }}
