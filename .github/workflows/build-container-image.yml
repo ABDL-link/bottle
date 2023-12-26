@@ -27,7 +27,7 @@ jobs:
       packages: write
 
     outputs:
-      tag1: ${{ steps.set_output.outputs.tag }}
+      tag: ${{ steps.set_output.outputs.tag }}
 
     runs-on: ubuntu-latest
     steps:
@@ -73,6 +73,9 @@ jobs:
           push: ${{ inputs.push_to_images != '' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: give out tags
+        run: echo "${{ steps.meta.outputs.labels }}+{{ inputs.tags }}"
         
       - name: Add final tag
         id: set_output
@@ -86,7 +89,7 @@ jobs:
       packages: write
       
     outputs:
-      tag2: ${{ steps.set_output.outputs.tag }}
+      tag: ${{ steps.set_output.outputs.tag }}
       
     runs-on: ARM64
     steps:
@@ -158,16 +161,16 @@ jobs:
 
     - name: Consume information
       run: |
-        echo "Received data from Job 1: ${{ needs.publish_x86.outputs.tag1 }}"
-        echo "Received data from Job 2: ${{ needs.publish_aarch64.outputs.tag2 }}"
+        echo "Received data from Job 1: ${{ needs.publish_x86.outputs.tag }}"
+        echo "Received data from Job 2: ${{ needs.publish_aarch64.outputs.tag }}"
 
     - name: Create manifest
       run: |
         docker manifest create ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} \
-          --amend ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}-amd64 \
-          --amend ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}-aarch64
-        docker manifest annotate --arch amd64 --os linux ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}-amd64
-        docker manifest annotate --arch arm64 --os linux ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}-aarch64
+          --amend ${{ needs.publish_x86.outputs.tag }} \
+          --amend ${{ needs.publish_aarch64.outputs.tag }}
+        docker manifest annotate --arch amd64 --os linux ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} ${{ needs.publish_x86.outputs.tag }}
+        docker manifest annotate --arch arm64 --os linux ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} ${{ needs.publish_aarch64.outputs.ta}}
         docker manifest inspect ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}
 
         docker manifest push ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}
