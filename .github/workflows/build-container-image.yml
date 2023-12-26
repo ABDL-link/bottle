@@ -53,7 +53,7 @@ jobs:
 
       - name: Set Flavor for amd64
         id: flavor
-        run: echo "FLAVOR0=${{ inputs.flavor }}-amd64" > $GITHUB_ENV
+        run: echo "FLAVOR0=amd64" > $GITHUB_ENV
 
       - uses: docker/metadata-action@v4
         id: meta
@@ -114,12 +114,16 @@ jobs:
           MATRIX_CONTEXT: ${{inputs.push_to_images}}+${{steps.meta.outputs.labels}}+${{ steps.meta.outputs.tags }}
         run: echo "$MATRIX_CONTEXT"
 
+      - name: Set Flavor for arm64
+        id: flavor
+        run: echo "FLAVOR1=arm64" > $GITHUB_ENV
+
       - uses: docker/metadata-action@v4
         id: meta
         if: ${{ inputs.push_to_images != '' }}
         with:
           images: ${{ inputs.push_to_images }}
-          flavor: ${{ inputs.flavor }}-arm64
+          flavor: ${{ github.FLAVOR1 }}
           tags: ${{ inputs.tags }}
           labels: ${{ inputs.labels }}
         
