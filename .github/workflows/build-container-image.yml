@@ -77,7 +77,7 @@ jobs:
 
       - name: echo main docker path
         env:
-          MATRIX_CONTEXT: ${{steps.release_build.tags}}
+          MATRIX_CONTEXT: ${{ DOCKER_METADATA_OUTPUT_TAGS }}
         run: echo "$MATRIX_CONTEXT"
         
       - name: Add final tag
@@ -145,7 +145,7 @@ jobs:
           
       - name: echo main docker path
         env:
-          MATRIX_CONTEXT: ${{steps.release_build.tags}}
+          MATRIX_CONTEXT: ${{ DOCKER_METADATA_OUTPUT_TAGS }}
         run: echo "$MATRIX_CONTEXT"
         
       - name: Add final tag
