@@ -27,8 +27,7 @@ jobs:
       packages: write
 
     outputs:
-      id: publish_x86
-      values: ${{ steps.set_output.outputs.tag }}
+      tag1: ${{ steps.set_output.outputs.tag }}
 
     runs-on: ubuntu-latest
     steps:
@@ -87,8 +86,7 @@ jobs:
       packages: write
       
     outputs:
-      id: publish_aarch64
-      values: ${{ steps.set_output.outputs }}
+      tag2: ${{ steps.set_output.outputs.tag }}
       
     runs-on: ARM64
     steps:
@@ -138,14 +136,9 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
-      - name: echo main docker path
-        env:
-          MATRIX_CONTEXT: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
-        run: echo "$MATRIX_CONTEXT"
-        
       - name: Add final tag
         id: set_output
-        run: echo "::set-output name=tag2::${{ env.DOCKER_METADATA_OUTPUT_TAGS }}"
+        run: echo "tag=${{ env.DOCKER_METADATA_OUTPUT_TAGS }}">>$GITHUB_OUTPUT
 
   publish_manifest:
     runs-on: ubuntu-latest
@@ -165,8 +158,8 @@ jobs:
 
     - name: Consume information
       run: |
-        echo "Received data from Job 1: ${{ needs.publish_x86.outputs.publish_x86.tag }}"
-        echo "Received data from Job 2: ${{ needs.publish_aarch64.outputs.publish_aarch64-output.tag2 }}"
+        echo "Received data from Job 1: ${{ needs.publish_x86.outputs.tag1.tag }}"
+        echo "Received data from Job 2: ${{ needs.publish_aarch64.outputs.tag2.tag }}"
 
     - name: Create manifest
       run: |
