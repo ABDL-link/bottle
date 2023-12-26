@@ -24,10 +24,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-        with:
-          repository: inlets/inlets-operator
-          path: "./"
+      - uses: actions/checkout@v4
 
       - name: Setup mirror
         uses: self-actuated/hub-mirror@master
@@ -69,10 +66,7 @@ jobs:
 
     runs-on: ARM64
     steps:
-      - uses: actions/checkout@master
-        with:
-          repository: inlets/inlets-operator
-          path: "./"
+      - uses: actions/checkout@v4
 
       - name: Setup mirror
         uses: self-actuated/hub-mirror@master
