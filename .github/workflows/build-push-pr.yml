@@ -35,10 +35,9 @@ jobs:
     needs: compute-suffix
     uses: ./.github/workflows/build-container-image.yml
     with:
-      push_to_images: |
-        ghcr.io/${{ needs.compute-suffix.outputs.owner }}/bottle
+      push_to_images: true
       version_metadata: ${{ needs.compute-suffix.outputs.metadata }}
       flavor: |
         latest=auto
       tags: |
-        type=ref,event=pr
+        ghcr.io/${{ needs.compute-suffix.outputs.owner }}/bottle:latest
