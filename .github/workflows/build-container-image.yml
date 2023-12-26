@@ -56,7 +56,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          outputs: "type=registry,push=true"
           build-args: |
             MASTODON_VERSION_PRERELEASE=${{ inputs.version_prerelease }}
             MASTODON_VERSION_METADATA=${{ inputs.version_metadata }}
@@ -105,7 +104,6 @@ jobs:
         id: release_build
         uses: docker/build-push-action@v5
         with:
-          outputs: "type=registry,push=true"
           context: .
           build-args: |
             MASTODON_VERSION_PRERELEASE=${{ inputs.version_prerelease }}
