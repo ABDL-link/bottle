@@ -36,7 +36,7 @@ jobs:
     uses: ./.github/workflows/build-container-image.yml
     with:
       push_to_images: |
-        ghcr.io/${{ needs.compute-suffix.outputs.owner }}/inlets-operator:${{ github.sha }}-aarch64
+        ghcr.io/${{ needs.compute-suffix.outputs.owner }}/bottle
       version_metadata: ${{ needs.compute-suffix.outputs.metadata }}
       flavor: |
         latest=auto
