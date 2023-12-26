@@ -174,7 +174,7 @@ jobs:
         docker manifest annotate --arch arm64 --os linux ${{ env.FLAVORTAG }} ${{ needs.publish_aarch64.outputs.tag}}
         docker manifest inspect ${{ env.FLAVORTAG }}
 
-        docker manifest push ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}
+        docker manifest push ${{ env.FLAVORTAG }}
 
 
 
