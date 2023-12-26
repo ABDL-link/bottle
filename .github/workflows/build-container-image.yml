@@ -73,9 +73,6 @@ jobs:
           push: ${{ inputs.push_to_images != '' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: give out tags
-        run: echo "${{ inputs }}+${{ inputs.tags }}"
         
       - name: Add final tag
         id: set_output
@@ -166,6 +163,10 @@ jobs:
 
     - name: Create manifest
       run: |
+        FLAVOR_X86=$(echo ${{ needs.publish_x86.outputs.flavor }} | sed 's/-amd64$//')
+        FLAVOR_AARCH64=$(echo ${{ needs.publish_aarch64.outputs.flavor }} | sed 's/-arm64$//')
+        echo "$(FLAVOR_X86)"
+        echo $FLAVOR_AARCH64
         docker manifest create ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} \
           --amend ${{ needs.publish_x86.outputs.tag }} \
           --amend ${{ needs.publish_aarch64.outputs.tag }}
