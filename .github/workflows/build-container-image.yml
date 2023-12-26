@@ -14,6 +14,10 @@ on:
       labels:
         type: string
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   publish_x86:
     concurrency: 
