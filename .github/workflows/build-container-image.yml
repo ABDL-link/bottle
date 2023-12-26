@@ -50,6 +50,15 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{inputs.push_to_images}}+${{steps.meta.outputs.labels}}+${{ steps.meta.outputs.tags }}
         run: echo "$MATRIX_CONTEXT"
+
+      - uses: docker/metadata-action@v4
+        id: meta
+        if: ${{ inputs.push_to_images != '' }}
+        with:
+          images: ${{ inputs.push_to_images }}
+          flavor: ${{ inputs.flavor }}-${{ matrix.platform }}
+          tags: ${{ inputs.tags }}
+          labels: ${{ inputs.labels }}
       
       - name: Release build
         id: release_build
@@ -63,7 +72,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
           push: ${{ inputs.push_to_images != '' }}
-          tags: ${{ inputs.tags }}-${{ matrix.platform }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
   publish_aarch64:
@@ -100,6 +109,15 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{inputs.push_to_images}}+${{steps.meta.outputs.labels}}+${{ steps.meta.outputs.tags }}
         run: echo "$MATRIX_CONTEXT"
+
+      - uses: docker/metadata-action@v4
+        id: meta
+        if: ${{ inputs.push_to_images != '' }}
+        with:
+          images: ${{ inputs.push_to_images }}
+          flavor: ${{ inputs.flavor }}-${{ matrix.platform }}
+          tags: ${{ inputs.tags }}
+          labels: ${{ inputs.labels }}
         
       - name: Release build
         id: release_build
@@ -113,7 +131,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
           push: ${{ inputs.push_to_images != '' }}
-          tags: ${{ inputs.tags }}-${{ matrix.platform }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
   publish_manifest:
