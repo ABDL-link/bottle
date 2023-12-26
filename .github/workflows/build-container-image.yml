@@ -161,17 +161,17 @@ jobs:
         echo "Received data from Job 1: ${{ needs.publish_x86.outputs.tag }}"
         echo "Received data from Job 2: ${{ needs.publish_aarch64.outputs.tag }}"
 
+    - name: Create flavortag
+      id: get_flavor_tag
+      run: echo "FLAVORTAG=$(echo ${{ needs.publish_aarch64.outputs.flavor}} | sed 's/-arm64$//')" >> $GITHUB_ENV
+
     - name: Create manifest
       run: |
-        FLAVOR_X86=$(echo ${{ needs.publish_x86.outputs.flavor }} | sed 's/-amd64$//')
-        FLAVOR_AARCH64=$(echo ${{ needs.publish_aarch64.outputs.flavor }} | sed 's/-arm64$//')
-        echo "$(FLAVOR_X86)"
-        echo $FLAVOR_AARCH64
-        docker manifest create ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} \
+        docker manifest create ${{ env.FLAVORTAG }}\
           --amend ${{ needs.publish_x86.outputs.tag }} \
           --amend ${{ needs.publish_aarch64.outputs.tag }}
-        docker manifest annotate --arch amd64 --os linux ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} ${{ needs.publish_x86.outputs.tag }}
-        docker manifest annotate --arch arm64 --os linux ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} ${{ needs.publish_aarch64.outputs.ta}}
+        docker manifest annotate --arch amd64 --os linux ${{ env.FLAVORTAG }} ${{ needs.publish_x86.outputs.tag }}
+        docker manifest annotate --arch arm64 --os linux ${{ env.FLAVORTAG }} ${{ needs.publish_aarch64.outputs.ta}}
         docker manifest inspect ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}
 
         docker manifest push ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}
