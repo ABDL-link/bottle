@@ -26,6 +26,10 @@ jobs:
     permissions:
       packages: write
 
+    outputs:
+      id: publish_x86
+      values: ${{ steps.set_output.outputs }}
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -45,15 +49,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
-
-      - name: echo main docker path
-        env:
-          MATRIX_CONTEXT: ${{inputs.push_to_images}}+${{steps.meta.outputs.labels}}+${{ steps.meta.outputs.tags }}+${{ inputs.flavor }}
-        run: echo "$MATRIX_CONTEXT"
-
-      - name: Set Flavor for amd64
-        id: flavor
-        run: echo "FLAVOR0=amd64" > $GITHUB_ENV
 
       - uses: docker/metadata-action@v4
         id: meta
@@ -80,13 +75,26 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: echo main docker path
+        env:
+          MATRIX_CONTEXT: ${{steps.release_build.tags}}
+        run: echo "$MATRIX_CONTEXT"
+        
+      - name: Add final tag
+        id: set_output
+        run: echo "::set-output name=tag::${{steps.release_build.tags}}"
+
   publish_aarch64:
     concurrency: 
       group: ${{ github.ref }}-aarch64
       cancel-in-progress: true
     permissions:
       packages: write
-
+      
+    outputs:
+      id: publish_aarch64
+      values: ${{ steps.set_output.outputs }}
+      
     runs-on: ARM64
     steps:
       - uses: actions/checkout@v4
@@ -109,15 +117,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
-
-      - name: echo main docker path
-        env:
-          MATRIX_CONTEXT: ${{inputs.push_to_images}}+${{steps.meta.outputs.labels}}+${{ steps.meta.outputs.tags }}
-        run: echo "$MATRIX_CONTEXT"
-
-      - name: Set Flavor for arm64
-        id: flavor
-        run: echo "FLAVOR1=arm64" > $GITHUB_ENV
 
       - uses: docker/metadata-action@v4
         id: meta
@@ -143,6 +142,15 @@ jobs:
           push: ${{ inputs.push_to_images != '' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          
+      - name: echo main docker path
+        env:
+          MATRIX_CONTEXT: ${{steps.release_build.tags}}
+        run: echo "$MATRIX_CONTEXT"
+        
+      - name: Add final tag
+        id: set_output
+        run: echo "::set-output name=tag2::${{steps.release_build.tags}}"
 
   publish_manifest:
     runs-on: ubuntu-latest
@@ -159,6 +167,11 @@ jobs:
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
+
+    - name: Consume information
+      run: |
+        echo "Received data from Job 1: ${{ needs.publish_x86.outputs.publish_x86-output.tag }}"
+        echo "Received data from Job 2: ${{ needs.publish_aarch64.outputs.publish_aarch64-output.tag2 }}"
 
     - name: Create manifest
       run: |
