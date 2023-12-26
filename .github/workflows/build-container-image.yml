@@ -77,7 +77,7 @@ jobs:
 
       - name: echo main docker path
         env:
-          MATRIX_CONTEXT: ${{ steps.meta.outputs.tags }}
+          MATRIX_CONTEXT: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
         run: echo "$MATRIX_CONTEXT"
         
       - name: echo vars
@@ -85,7 +85,7 @@ jobs:
         
       - name: Add final tag
         id: set_output
-        run: echo "::set-output name=tag::${{steps.release_build.tags}}"
+        run: echo "::set-output name=tag::${{ env.DOCKER_METADATA_OUTPUT_TAGS }}"
 
   publish_aarch64:
     concurrency: 
@@ -148,12 +148,12 @@ jobs:
           
       - name: echo main docker path
         env:
-          MATRIX_CONTEXT: ${{ steps.release_build.tags }}
+          MATRIX_CONTEXT: ${{ env.DOCKER_METADATA_OUTPUT_TAGS }}
         run: echo "$MATRIX_CONTEXT"
         
       - name: Add final tag
         id: set_output
-        run: echo "::set-output name=tag2::${{steps.release_build.tags}}"
+        run: echo "::set-output name=tag2::${{ env.DOCKER_METADATA_OUTPUT_TAGS }}"
 
   publish_manifest:
     runs-on: ubuntu-latest
