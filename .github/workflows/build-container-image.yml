@@ -77,8 +77,11 @@ jobs:
 
       - name: echo main docker path
         env:
-          MATRIX_CONTEXT: ${{ DOCKER_METADATA_OUTPUT_TAGS }}
+          MATRIX_CONTEXT: ${{ steps.meta.outputs.tags }}
         run: echo "$MATRIX_CONTEXT"
+        
+      - name: echo vars
+        run: echo "$GITHUB_ENV"
         
       - name: Add final tag
         id: set_output
