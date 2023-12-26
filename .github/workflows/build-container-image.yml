@@ -45,6 +45,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
+
+      - name: echo main docker path
+        env:
+          MATRIX_CONTEXT: ${{inputs.push_to_images}}+${{steps.meta.outputs.labels}}+${{ steps.meta.outputs.tags }}
+        run: echo "$MATRIX_CONTEXT"
       
       - name: Release build
         id: release_build
@@ -90,7 +95,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
-      
+
+      - name: echo main docker path
+        env:
+          MATRIX_CONTEXT: ${{inputs.push_to_images}}+${{steps.meta.outputs.labels}}+${{ steps.meta.outputs.tags }}
+        run: echo "$MATRIX_CONTEXT"
+        
       - name: Release build
         id: release_build
         uses: docker/build-push-action@v5
