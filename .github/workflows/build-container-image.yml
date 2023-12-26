@@ -64,6 +64,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
+          provenance: false
           build-args: |
             MASTODON_VERSION_PRERELEASE=${{ inputs.version_prerelease }}
             MASTODON_VERSION_METADATA=${{ inputs.version_metadata }}
@@ -126,6 +127,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
+          provenance: false
           build-args: |
             MASTODON_VERSION_PRERELEASE=${{ inputs.version_prerelease }}
             MASTODON_VERSION_METADATA=${{ inputs.version_metadata }}
