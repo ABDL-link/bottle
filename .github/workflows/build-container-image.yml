@@ -127,14 +127,14 @@ jobs:
 
     - name: Create manifest
       run: |
-        docker manifest create ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }} \
-          --amend ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-amd64 \
-          --amend ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-aarch64
-        docker manifest annotate --arch amd64 --os linux ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }} ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-amd64
-        docker manifest annotate --arch arm64 --os linux ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }} ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-aarch64
-        docker manifest inspect ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}
+        docker manifest create ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} \
+          --amend ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}-amd64 \
+          --amend ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}-aarch64
+        docker manifest annotate --arch amd64 --os linux ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-amd64
+        docker manifest annotate --arch arm64 --os linux ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }} ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}-aarch64
+        docker manifest inspect ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}
 
-        docker manifest push ghcr.io/${{ env.REPO_OWNER }}/inlets-operator:${{ github.sha }}
+        docker manifest push ghcr.io/${{ env.REPO_OWNER }}/bottle:${{ github.sha }}
 
 
 
