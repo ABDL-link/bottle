@@ -30,7 +30,6 @@ jobs:
     needs: compute-suffix
     uses: ./.github/workflows/build-container-image.yml
     with:
-      cache: false
       push_to_images: |
         emmaae/mastodon-ab
         ghcr.io/${{ needs.compute-suffix.outputs.owner }}/bottle
