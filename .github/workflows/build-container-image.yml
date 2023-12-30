@@ -20,6 +20,7 @@ permissions:
 
 jobs:
   publish_x86:
+    environment: prod
     concurrency: 
       group: ${{ github.ref }}-x86
       cancel-in-progress: true
@@ -88,6 +89,7 @@ jobs:
         run: echo "tag=${{ env.DOCKER_METADATA_OUTPUT_TAGS }}">>$GITHUB_OUTPUT
 
   publish_aarch64:
+    environment: prod
     concurrency: 
       group: ${{ github.ref }}-aarch64
       cancel-in-progress: true
@@ -159,6 +161,7 @@ jobs:
         run: echo "tag=${{ env.DOCKER_METADATA_OUTPUT_TAGS }}">>$GITHUB_OUTPUT
 
   publish_manifest:
+    environment: prod
     runs-on: ubuntu-latest
     needs: [publish_x86, publish_aarch64]
     steps:
