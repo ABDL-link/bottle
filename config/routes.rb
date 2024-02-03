@@ -96,10 +96,10 @@ Rails.application.routes.draw do
 
   devise_for :users, path: 'auth', format: false, controllers: {
     omniauth_callbacks: 'auth/omniauth_callbacks',
-    sessions:           'auth/sessions',
-    registrations:      'auth/registrations',
-    passwords:          'auth/passwords',
-    confirmations:      'auth/confirmations',
+    sessions: 'auth/sessions',
+    registrations: 'auth/registrations',
+    passwords: 'auth/passwords',
+    confirmations: 'auth/confirmations',
   }
 
   # rubocop:disable Style/FormatStringToken - those do not go through the usual formatting functions and are not safe to correct

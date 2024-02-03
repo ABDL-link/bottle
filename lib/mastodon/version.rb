@@ -9,7 +9,7 @@ module Mastodon
     end
 
     def minor
-      2
+      3
     end
 
     def patch
@@ -17,7 +17,7 @@ module Mastodon
     end
 
     def default_prerelease
-      ''
+      'alpha.0'
     end
 
     def prerelease
@@ -26,6 +26,10 @@ module Mastodon
 
     def build_metadata
       ENV.fetch('MASTODON_VERSION_METADATA', nil)
+    end
+      
+    def suffix
+      '+bottle'
     end
 
     def to_a
@@ -44,7 +48,7 @@ module Mastodon
     end
 
     def repository
-      ENV.fetch('GITHUB_REPOSITORY', 'mastodon/mastodon')
+      ENV.fetch('GITHUB_REPOSITORY', 'ABDL-link/bottle')
     end
 
     def source_base_url
