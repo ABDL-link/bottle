@@ -2,7 +2,7 @@
 
 [![Build container image](https://github.com/ABDL-link/bottle/actions/workflows/build-image.yml/badge.svg)](https://github.com/ABDL-link/bottle/actions/workflows/build-image.yml)
 
-A fork of [mastodon](https://github.com/mastodon/mastodon) used on [ABDL.link](https://abdl.link).
+A fork of [mastodon](https://github.com/mastodon/mastodon) used on [ABDL.link](https://abdl.link). Build for arch
 
 ## License
 
