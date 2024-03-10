@@ -13,7 +13,7 @@ module Mastodon
     end
 
     def patch
-      5
+      8
     end
 
     def default_prerelease
@@ -28,6 +28,10 @@ module Mastodon
       ENV.fetch('MASTODON_VERSION_METADATA', nil)
     end
       
+    def suffix
+      '+bottle'
+    end
+
     def suffix
       '+bottle'
     end
