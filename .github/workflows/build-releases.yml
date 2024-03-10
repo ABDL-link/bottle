@@ -22,6 +22,7 @@ jobs:
       
   build-image:
     uses: ./.github/workflows/build-container-image.yml
+    needs: compute-owner
     with:
       push_to_images: |
         emmaae/mastodon-ab
