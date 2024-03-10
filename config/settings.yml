@@ -9,13 +9,17 @@ defaults: &defaults
   site_terms: ''
   site_contact_username: ''
   site_contact_email: ''
-  registrations_mode: 'none'
+  registrations_mode: 'open'
   profile_directory: true
   closed_registrations_message: ''
   timeline_preview: true
   show_staff_badge: true
   preview_sensitive_media: false
-  noindex: false
+  reduce_motion: false
+  disable_swiping: false
+  show_application: true
+  system_font_ui: false
+  noindex: true
   theme: 'default'
   trends: true
   trends_as_landing_page: true
