@@ -798,7 +798,7 @@ DEPENDENCIES
   addressable (~> 2.8)
   annotate (~> 3.2)
   aws-sdk-s3 (~> 1.123)
-  better_errors (~> 2.9)
+  better_errors (~> 2.10)
   binding_of_caller (~> 1.0)
   blurhash (~> 0.1)
   bootsnap (~> 1.16.0)
