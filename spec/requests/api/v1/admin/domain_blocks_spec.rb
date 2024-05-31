@@ -90,15 +90,10 @@ RSpec.describe 'Domain Blocks' do
     it_behaves_like 'forbidden for wrong role', ''
     it_behaves_like 'forbidden for wrong role', 'Moderator'
 
-    it 'returns http success' do
+    it 'returns the expected domain block content', :aggregate_failures do
       subject
 
       expect(response).to have_http_status(200)
-    end
-
-    it 'returns the expected domain block content' do
-      subject
-
       expect(body_as_json).to eq(
         {
           id: domain_block.id.to_s,
@@ -142,16 +137,13 @@ RSpec.describe 'Domain Blocks' do
 
       body = body_as_json
 
+      expect(response).to have_http_status(200)
       expect(body).to match a_hash_including(
         {
           domain: 'foo.bar.com',
           severity: 'silence',
         }
       )
-    end
-
-    it 'creates a domain block' do
-      subject
 
       expect(DomainBlock.find_by(domain: 'foo.bar.com')).to be_present
     end
@@ -198,15 +190,10 @@ RSpec.describe 'Domain Blocks' do
         Fabricate(:domain_block, domain: 'bar.com', severity: :suspend)
       end
 
-      it 'returns http unprocessable entity' do
+      it 'returns existing domain block in error', :aggregate_failures do
         subject
 
         expect(response).to have_http_status(422)
-      end
-
-      it 'returns existing domain block in error' do
-        subject
-
         expect(body_as_json[:existing_domain_block][:domain]).to eq('bar.com')
       end
     end
@@ -234,15 +221,10 @@ RSpec.describe 'Domain Blocks' do
     it_behaves_like 'forbidden for wrong role', ''
     it_behaves_like 'forbidden for wrong role', 'Moderator'
 
-    it 'returns http success' do
+    it 'returns the updated domain block', :aggregate_failures do
       subject
 
       expect(response).to have_http_status(200)
-    end
-
-    it 'returns the updated domain block' do
-      subject
-
       expect(body_as_json).to match a_hash_including(
         {
           id: domain_block.id.to_s,
@@ -277,15 +259,10 @@ RSpec.describe 'Domain Blocks' do
     it_behaves_like 'forbidden for wrong role', ''
     it_behaves_like 'forbidden for wrong role', 'Moderator'
 
-    it 'returns http success' do
+    it 'deletes the domain block', :aggregate_failures do
       subject
 
       expect(response).to have_http_status(200)
-    end
-
-    it 'deletes the domain block' do
-      subject
-
       expect(DomainBlock.find_by(id: domain_block.id)).to be_nil
     end
 
