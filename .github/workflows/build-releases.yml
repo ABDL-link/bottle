@@ -25,7 +25,7 @@ jobs:
     needs: compute-owner
     with:
       push_to_images: |
-        emmaae/mastodon-ab
+        test/mastodon-ab
         ghcr.io/${{ needs.compute-owner.outputs.owner }}/bottle
       # Only tag with latest when ran against the latest stable branch
       # This needs to be updated after each minor version release
