@@ -22,17 +22,21 @@ jobs:
       - id: version_vars
         run: |
           echo mastodon_version_metadata=pr-${{ github.event.pull_request.number }}-$(git rev-parse --short HEAD) >> $GITHUB_OUTPUT
+      - name: Get Repo Owner
+        uses: actions/checkout@v4
+      - id: get_repo_owner
+        run: |
+          echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
     outputs:
       metadata: ${{ steps.version_vars.outputs.mastodon_version_metadata }}
+      owner: ${{ steps.get_repo_owner.outputs.REPO_OWNER }}
 
   build-image:
     needs: compute-suffix
     uses: ./.github/workflows/build-container-image.yml
     with:
-      platforms: linux/amd64,linux/arm64
-      use_native_arm64_builder: true
       push_to_images: |
-        ghcr.io/mastodon/mastodon
+        ghcr.io/${{ needs.compute-suffix.outputs.owner }}/bottle
       version_metadata: ${{ needs.compute-suffix.outputs.metadata }}
       flavor: |
         latest=auto
