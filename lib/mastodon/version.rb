@@ -9,7 +9,7 @@ module Mastodon
     end
 
     def minor
-      3
+      2
     end
 
     def patch
@@ -28,10 +28,6 @@ module Mastodon
       ENV.fetch('MASTODON_VERSION_METADATA', nil)
     end
       
-    def suffix
-      '+bottle'
-    end
-
     def suffix
       '+bottle'
     end
