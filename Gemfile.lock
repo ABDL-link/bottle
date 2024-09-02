@@ -239,7 +239,7 @@ GEM
       multi_json
     encryptor (3.0.0)
     erubi (1.12.0)
-    et-orbi (1.2.7)
+    et-orbi (1.2.11)
       tzinfo
     excon (0.100.0)
     fabrication (2.30.0)
@@ -289,8 +289,8 @@ GEM
       fog-json (>= 1.0)
       ipaddress (>= 0.8)
     formatador (0.3.0)
-    fugit (1.8.1)
-      et-orbi (~> 1, >= 1.2.7)
+    fugit (1.11.1)
+      et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
     fuubar (2.5.1)
       rspec-core (~> 3.0)
@@ -446,11 +446,8 @@ GEM
       net-protocol
     net-protocol (0.2.2)
       timeout
-    net-scp (4.0.0)
-      net-ssh (>= 2.6.5, < 8.0.0)
     net-smtp (0.3.4)
       net-protocol
-    net-ssh (7.1.0)
     nio4r (2.7.3)
     nokogiri (1.16.6)
       mini_portile2 (~> 2.8.2)
