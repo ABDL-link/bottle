@@ -83,7 +83,7 @@ jobs:
           push: ${{ inputs.push_to_images != '' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
+        
       - name: Add final tag
         id: set_output
         run: echo "tag=${{ env.DOCKER_METADATA_OUTPUT_TAGS }}">>$GITHUB_OUTPUT
