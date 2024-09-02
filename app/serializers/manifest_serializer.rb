@@ -91,6 +91,10 @@ class ManifestSerializer < ActiveModel::Serializer
         name: 'Notifications',
         url: '/notifications',
       },
+      {
+        name: 'Explore',
+        url: '/explore',
+      },
     ]
   end
 end
