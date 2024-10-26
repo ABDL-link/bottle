@@ -109,6 +109,7 @@ RSpec.describe RemoveStatusService, :inline_jobs do
 
     it 'sends Undo activity to followers' do
       subject.call(status)
+<<<<<<< HEAD
 
       expect(undo_delivery(bill, original_status))
         .to have_been_made.once
@@ -129,4 +130,17 @@ RSpec.describe RemoveStatusService, :inline_jobs do
       )
     )
   end
+=======
+      expect(a_request(:post, bill.inbox_url).with(
+               body: hash_including({
+                 'type' => 'Undo',
+                 'object' => hash_including({
+                   'type' => 'Announce',
+                   'object' => ActivityPub::TagManager.instance.uri_for(original_status),
+                 }),
+               })
+             )).to have_been_made.once
+    end
+  end
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
 end
