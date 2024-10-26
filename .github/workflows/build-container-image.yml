@@ -87,7 +87,7 @@ jobs:
       - name: Add final tag
         id: set_output
         run: echo "text<<EOF"$'\n'"tag=${{ env.DOCKER_METADATA_OUTPUT_TAGS }}"$'\n'EOF >> $GITHUB_OUTPUT
-        
+
   publish_aarch64:
     environment: prod
     concurrency: 
