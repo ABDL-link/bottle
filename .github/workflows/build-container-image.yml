@@ -48,7 +48,7 @@ jobs:
         if: contains(inputs.push_to_images, 'emmaae')
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: emmaae
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Login to container Registry
@@ -57,7 +57,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
-
+          
       - uses: docker/metadata-action@v4
         id: meta
         if: ${{ inputs.push_to_images != '' }}
@@ -120,7 +120,7 @@ jobs:
         if: contains(inputs.push_to_images, 'emmaae')
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: emmaae
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Login to container Registry
