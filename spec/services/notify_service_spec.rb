@@ -18,6 +18,17 @@ RSpec.describe NotifyService do
     expect { subject }.to_not change(Notification, :count)
   end
 
+  context 'when the sender is a local moderator' do
+    let(:sender) { Fabricate(:user, role: UserRole.find_by(name: 'Admin')).account }
+    let(:type) { :mention }
+    let(:activity) { Fabricate(:mention, account: recipient, status: Fabricate(:status, account: sender)) }
+
+    it 'does notify when the sender is blocked' do
+      recipient.block!(sender)
+      expect { subject }.to change(Notification, :count).by(1)
+    end
+  end
+
   it 'does not notify when sender is muted with hide_notifications' do
     recipient.mute!(sender, notifications: true)
     expect { subject }.to_not change(Notification, :count)
@@ -50,6 +61,66 @@ RSpec.describe NotifyService do
     expect { subject }.to_not change(Notification, :count)
   end
 
+<<<<<<< HEAD
+=======
+  context 'with direct messages' do
+    let(:activity) { Fabricate(:mention, account: recipient, status: Fabricate(:status, account: sender, visibility: :direct)) }
+    let(:type)     { :mention }
+
+    before do
+      user.settings.update('interactions.must_be_following_dm': enabled)
+      user.save
+    end
+
+    context 'when recipient is supposed to be following sender' do
+      let(:enabled) { true }
+
+      it 'does not notify' do
+        expect { subject }.to_not change(Notification, :count)
+      end
+
+      context 'when the message chain is initiated by recipient, but is not direct message' do
+        let(:reply_to) { Fabricate(:status, account: recipient) }
+        let!(:mention) { Fabricate(:mention, account: sender, status: reply_to) }
+        let(:activity) { Fabricate(:mention, account: recipient, status: Fabricate(:status, account: sender, visibility: :direct, thread: reply_to)) }
+
+        it 'does not notify' do
+          expect { subject }.to_not change(Notification, :count)
+        end
+      end
+
+      context 'when the message chain is initiated by recipient, but without a mention to the sender, even if the sender sends multiple messages in a row' do
+        let(:public_status) { Fabricate(:status, account: recipient) }
+        let(:intermediate_reply) { Fabricate(:status, account: sender, thread: public_status, visibility: :direct) }
+        let!(:intermediate_mention) { Fabricate(:mention, account: sender, status: intermediate_reply) }
+        let(:activity) { Fabricate(:mention, account: recipient, status: Fabricate(:status, account: sender, visibility: :direct, thread: intermediate_reply)) }
+
+        it 'does not notify' do
+          expect { subject }.to_not change(Notification, :count)
+        end
+      end
+
+      context 'when the message chain is initiated by the recipient with a mention to the sender' do
+        let(:reply_to) { Fabricate(:status, account: recipient, visibility: :direct) }
+        let!(:mention) { Fabricate(:mention, account: sender, status: reply_to) }
+        let(:activity) { Fabricate(:mention, account: recipient, status: Fabricate(:status, account: sender, visibility: :direct, thread: reply_to)) }
+
+        it 'does notify' do
+          expect { subject }.to change(Notification, :count)
+        end
+      end
+    end
+
+    context 'when recipient is NOT supposed to be following sender' do
+      let(:enabled) { false }
+
+      it 'does notify' do
+        expect { subject }.to change(Notification, :count)
+      end
+    end
+  end
+
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
   describe 'reblogs' do
     let(:status)   { Fabricate(:status, account: Fabricate(:account)) }
     let(:activity) { Fabricate(:status, account: sender, reblog: status) }

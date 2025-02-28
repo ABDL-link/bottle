@@ -2,7 +2,11 @@
 
 require 'rails_helper'
 
+<<<<<<< HEAD
 RSpec.describe 'signature verification concern' do
+=======
+describe 'signature verification concern' do
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
   before do
     stub_tests_controller
 
@@ -50,7 +54,11 @@ RSpec.describe 'signature verification concern' do
       get '/activitypub/success'
 
       expect(response).to have_http_status(200)
+<<<<<<< HEAD
       expect(response.parsed_body).to match(
+=======
+      expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
         signed_request: false,
         signature_actor_id: nil,
         error: 'Request not signed'
@@ -62,7 +70,11 @@ RSpec.describe 'signature verification concern' do
         get '/activitypub/signature_required'
 
         expect(response).to have_http_status(401)
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           error: 'Request not signed'
         )
       end
@@ -87,7 +99,11 @@ RSpec.describe 'signature verification concern' do
         }
 
         expect(response).to have_http_status(200)
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: actor.id.to_s
         )
@@ -109,7 +125,11 @@ RSpec.describe 'signature verification concern' do
         }
 
         expect(response).to have_http_status(200)
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: actor.id.to_s
         )
@@ -131,7 +151,11 @@ RSpec.describe 'signature verification concern' do
         }
 
         expect(response).to have_http_status(200)
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: actor.id.to_s
         )
@@ -152,7 +176,11 @@ RSpec.describe 'signature verification concern' do
           'Signature' => signature_header,
         }
 
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: nil,
           error: anything
@@ -168,7 +196,11 @@ RSpec.describe 'signature verification concern' do
           'Signature' => 'keyId="https://remote.domain/users/bob#main-key",algorithm="rsa-sha256",headers="date host (request-target)",signature="Z8ilar3J7bOwqZkMp7sL8sRs4B1FT+UorbmvWoE+A5UeoOJ3KBcUmbsh+k3wQwbP5gMNUrra9rEWabpasZGphLsbDxfbsWL3Cf0PllAc7c1c7AFEwnewtExI83/qqgEkfWc2z7UDutXc2NfgAx89Ox8DXU/fA2GG0jILjB6UpFyNugkY9rg6oI31UnvfVi3R7sr3/x8Ea3I9thPvqI2byF6cojknSpDAwYzeKdngX3TAQEGzFHz3SDWwyp3jeMWfwvVVbM38FxhvAnSumw7YwWW4L7M7h4M68isLimoT3yfCn2ucBVL5Dz8koBpYf/40w7QidClAwCafZQFC29yDOg=="', # rubocop:disable Layout/LineLength
         }
 
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: nil,
           error: anything
@@ -184,7 +216,11 @@ RSpec.describe 'signature verification concern' do
           'Signature' => 'keyId="https://remote.domain/users/bob#main-key",algorithm="rsa-sha256",headers="date host (request-target)",signature="Z8ilar3J7bOwqZkMp7sL8sRs4B1FT+UorbmvWoE+A5UeoOJ3KBcUmbsh+k3wQwbP5gMNUrra9rEWabpasZGphLsbDxfbsWL3Cf0PllAc7c1c7AFEwnewtExI83/qqgEkfWc2z7UDutXc2NfgAx89Ox8DXU/fA2GG0jILjB6UpFyNugkY9rg6oI31UnvfVi3R7sr3/x8Ea3I9thPvqI2byF6cojknSpDAwYzeKdngX3TAQEGzFHz3SDWwyp3jeMWfwvVVbM38FxhvAnSumw7YwWW4L7M7h4M68isLimoT3yfCn2ucBVL5Dz8koBpYf/40w7QidClAwCafZQFC29yDOg=="', # rubocop:disable Layout/LineLength
         }
 
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: nil,
           error: anything
@@ -206,7 +242,11 @@ RSpec.describe 'signature verification concern' do
           'Signature' => signature_header,
         }
 
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: nil,
           error: 'Invalid Date header: not RFC 2616 compliant date: "wrong date"'
@@ -228,7 +268,11 @@ RSpec.describe 'signature verification concern' do
           'Signature' => signature_header,
         }
 
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: nil,
           error: 'Signed request date outside acceptable time window'
@@ -254,7 +298,11 @@ RSpec.describe 'signature verification concern' do
         }
 
         expect(response).to have_http_status(200)
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: actor.id.to_s
         )
@@ -278,7 +326,11 @@ RSpec.describe 'signature verification concern' do
           'Signature' => signature_header,
         }
 
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: nil,
           error: 'Mastodon requires the Digest header to be signed when doing a POST request'
@@ -303,7 +355,11 @@ RSpec.describe 'signature verification concern' do
           'Signature' => signature_header,
         }
 
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: nil,
           error: 'Invalid Digest value. Computed SHA-256 digest: wFNeS+K3n/2TKRMFQ2v4iTFOSj+uwF7P/Lt98xrZ5Ro=; given: ZOyIygCyaOW6GjVnihtTFtIS9PNmskdyMlNKiuyjfzw='
@@ -321,7 +377,11 @@ RSpec.describe 'signature verification concern' do
         }
 
         expect(response).to have_http_status(200)
+<<<<<<< HEAD
         expect(response.parsed_body).to match(
+=======
+        expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
           signed_request: true,
           signature_actor_id: nil,
           error: anything
@@ -342,7 +402,11 @@ RSpec.describe 'signature verification concern' do
         'Signature' => 'keyId="https://remote.domain/users/alice#main-key",algorithm="rsa-sha256",headers="date host (request-target)",signature="Z8ilar3J7bOwqZkMp7sL8sRs4B1FT+UorbmvWoE+A5UeoOJ3KBcUmbsh+k3wQwbP5gMNUrra9rEWabpasZGphLsbDxfbsWL3Cf0PllAc7c1c7AFEwnewtExI83/qqgEkfWc2z7UDutXc2NfgAx89Ox8DXU/fA2GG0jILjB6UpFyNugkY9rg6oI31UnvfVi3R7sr3/x8Ea3I9thPvqI2byF6cojknSpDAwYzeKdngX3TAQEGzFHz3SDWwyp3jeMWfwvVVbM38FxhvAnSumw7YwWW4L7M7h4M68isLimoT3yfCn2ucBVL5Dz8koBpYf/40w7QidClAwCafZQFC29yDOg=="', # rubocop:disable Layout/LineLength
       }
 
+<<<<<<< HEAD
       expect(response.parsed_body).to match(
+=======
+      expect(body_as_json).to match(
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
         signed_request: true,
         signature_actor_id: nil,
         error: 'Unable to fetch key JSON at https://remote.domain/users/alice#main-key'

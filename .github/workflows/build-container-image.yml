@@ -1,9 +1,6 @@
 on:
   workflow_call:
     inputs:
-      cache:
-        type: boolean
-        default: true
       push_to_images:
         type: string
       version_prerelease:
@@ -16,155 +13,190 @@ on:
         type: string
       labels:
         type: string
-      file_to_build:
-        type: string
 
-# This builds multiple images with one runner each, allowing us to build for multiple architectures
-# using Github's runners.
-# The two-step process is adapted form:
-# https://docs.docker.com/build/ci/github-actions/multi-platform/#distribute-build-across-multiple-runners
+permissions:
+  contents: read
+  packages: write
+
 jobs:
-  # Build each (amd64 and arm64) image separately
-  build-image:
-    runs-on: ${{ startsWith(matrix.platform, 'linux/arm') && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
+  publish_x86:
+    environment: prod
+    concurrency: 
+      group: ${{ github.ref }}-x86
+      cancel-in-progress: true
+    permissions:
+      packages: write
 
+    outputs:
+      tag: ${{ steps.set_output.outputs.tag }}
+
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepare
-        env:
-          PUSH_TO_IMAGES: ${{ inputs.push_to_images }}
-        run: |
-          platform=${{ matrix.platform }}
-          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
-          # Transform multi-line variable into comma-separated variable
-          image_names=${PUSH_TO_IMAGES//$'\n'/,}
-          echo "IMAGE_NAMES=${image_names%,}" >> $GITHUB_ENV
+      - name: Setup mirror
+        uses: self-actuated/hub-mirror@master
+        
+      - name: Get Repo Owner
+        id: get_repo_owner
+        run: echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" > $GITHUB_ENV
 
-      - uses: docker/setup-buildx-action@v3
-        id: buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Log in to Docker Hub
-        if: contains(inputs.push_to_images, 'tootsuite')
+        if: contains(inputs.push_to_images, 'emmaae')
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: emmaae
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Log in to the GitHub Container registry
-        if: contains(inputs.push_to_images, 'ghcr.io')
-        uses: docker/login-action@v3
+          
+      - name: Login to container Registry
+        uses: docker/login-action@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Docker meta
+          registry: ghcr.io
+          
+      - uses: docker/metadata-action@v4
         id: meta
-        uses: docker/metadata-action@v5
         if: ${{ inputs.push_to_images != '' }}
         with:
           images: ${{ inputs.push_to_images }}
-          flavor: ${{ inputs.flavor }}
+          flavor: |
+            suffix=-amd64
+          tags: ${{ inputs.tags }}
           labels: ${{ inputs.labels }}
-
-      - name: Build and push by digest
-        id: build
-        uses: docker/build-push-action@v6
+      
+      - name: Release build
+        id: release_build
+        uses: docker/build-push-action@v4
         with:
           context: .
-          file: ${{ inputs.file_to_build }}
+          provenance: false
           build-args: |
             MASTODON_VERSION_PRERELEASE=${{ inputs.version_prerelease }}
             MASTODON_VERSION_METADATA=${{ inputs.version_metadata }}
-            SOURCE_COMMIT=${{ github.sha }}
-          platforms: ${{ matrix.platform }}
-          provenance: false
+          platforms: linux/amd64
+          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
           push: ${{ inputs.push_to_images != '' }}
-          cache-from: ${{ inputs.cache && 'type=gha' || '' }}
-          cache-to: ${{ inputs.cache && 'type=gha,mode=max' || '' }}
-          outputs: type=image,"name=${{ env.IMAGE_NAMES }}",push-by-digest=true,name-canonical=true,push=${{ inputs.push_to_images != '' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+        
+      - name: Add final tag
+        id: set_output
+        run: echo "text<<EOF"$'\n'"tag=${{ env.DOCKER_METADATA_OUTPUT_TAGS }}"$'\n'EOF >> $GITHUB_OUTPUT
 
-      - name: Export digest
-        if: ${{ inputs.push_to_images != '' }}
-        run: |
-          mkdir -p "${{ runner.temp }}/digests"
-          digest="${{ steps.build.outputs.digest }}"
-          touch "${{ runner.temp }}/digests/${digest#sha256:}"
-
-      - name: Upload digest
-        if: ${{ inputs.push_to_images != '' }}
-        uses: actions/upload-artifact@v4
-        with:
-          # `hashFiles` is used to disambiguate between streaming and non-streaming images
-          name: digests-${{ hashFiles(inputs.file_to_build) }}-${{ env.PLATFORM_PAIR }}
-          path: ${{ runner.temp }}/digests/*
-          if-no-files-found: error
-          retention-days: 1
-
-  # Then merge the docker images into a single one
-  merge-images:
-    if: ${{ inputs.push_to_images != '' }}
-    runs-on: ubuntu-24.04
-    needs:
-      - build-image
-
-    env:
-      PUSH_TO_IMAGES: ${{ inputs.push_to_images }}
-
+  publish_aarch64:
+    environment: prod
+    concurrency: 
+      group: ${{ github.ref }}-aarch64
+      cancel-in-progress: true
+    permissions:
+      packages: write
+      
+    outputs:
+      tag: ${{ steps.set_output.outputs.tag }}
+      
+    runs-on: ARM64
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download digests
-        uses: actions/download-artifact@v4
-        with:
-          path: ${{ runner.temp }}/digests
-          # `hashFiles` is used to disambiguate between streaming and non-streaming images
-          pattern: digests-${{ hashFiles(inputs.file_to_build) }}-*
-          merge-multiple: true
-
-      - name: Log in to Docker Hub
-        if: contains(inputs.push_to_images, 'tootsuite')
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Log in to the GitHub Container registry
-        if: contains(inputs.push_to_images, 'ghcr.io')
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup mirror
+        uses: self-actuated/hub-mirror@master
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        
+      - name: Get Repo Owner
+        id: get_repo_owner
+        run: echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" > $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        
+      - name: Log in to Docker Hub
+        if: contains(inputs.push_to_images, 'emmaae')
+        uses: docker/login-action@v2
+        with:
+          username: emmaae
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Login to container Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
 
-      - name: Docker meta
+      - uses: docker/metadata-action@v4
         id: meta
-        uses: docker/metadata-action@v5
         if: ${{ inputs.push_to_images != '' }}
         with:
           images: ${{ inputs.push_to_images }}
-          flavor: ${{ inputs.flavor }}
+          flavor: |
+            suffix=-arm64
           tags: ${{ inputs.tags }}
           labels: ${{ inputs.labels }}
+        
+      - name: Release build
+        id: release_build
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          provenance: false
+          build-args: |
+            MASTODON_VERSION_PRERELEASE=${{ inputs.version_prerelease }}
+            MASTODON_VERSION_METADATA=${{ inputs.version_metadata }}
+          platforms: linux/arm64
+          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name || steps.buildx-native.outputs.name }}
+          push: ${{ inputs.push_to_images != '' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          
+      - name: Add final tag
+        id: set_output
+        run: echo "text<<EOF"$'\n'"tag=${{ env.DOCKER_METADATA_OUTPUT_TAGS }}"$'\n'EOF >> $GITHUB_OUTPUT
 
-      - name: Create manifest list and push
-        working-directory: ${{ runner.temp }}/digests
-        run: |
-          echo "$PUSH_TO_IMAGES" | xargs -I{} \
-            docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-              $(printf '{}@sha256:%s ' *)
+  publish_manifest:
+    environment: prod
+    runs-on: ubuntu-latest
+    needs: [publish_x86, publish_aarch64]
+    steps:
 
-      - name: Inspect image
-        run: |
-          echo "$PUSH_TO_IMAGES" | xargs -i{} \
-            docker buildx imagetools inspect {}:${{ steps.meta.outputs.version }}
+    - name: Get Repo Owner
+      id: get_repo_owner
+      run: echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" > $GITHUB_ENV
+
+    - name: Log in to Docker Hub
+      if: contains(inputs.push_to_images, 'emmaae')
+      uses: docker/login-action@v3
+      with:
+        username: emmaae
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Login to container Registry
+      uses: docker/login-action@v2
+      with:
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+
+    - name: Consume information
+      run: |
+        echo "Received data from Job 1: ${{ needs.publish_x86.outputs.tag }}"
+        echo "Received data from Job 2: ${{ needs.publish_aarch64.outputs.tag }}"
+
+    - name: Create flavortag
+      id: get_flavor_tag
+      run: echo "FLAVORTAG=$(echo ${{ needs.publish_aarch64.outputs.tag}} | sed 's/-arm64$//')" >> $GITHUB_ENV
+
+    - name: Create manifest
+      run: |
+        docker manifest create ${{ env.FLAVORTAG }}\
+          --amend ${{ needs.publish_x86.outputs.tag }} \
+          --amend ${{ needs.publish_aarch64.outputs.tag }}
+        docker manifest inspect ${{ env.FLAVORTAG }}
+        docker manifest push ${{ env.FLAVORTAG }}
