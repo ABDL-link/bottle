@@ -2,6 +2,143 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.3.4] - 2025-02-27
+
+### Security
+
+- Update dependencies
+- Change HTML sanitization to remove unusable and unused `embed` tag (#34021 by @ClearlyClaire, [GHSA-mq2m-hr29-8gqf](https://github.com/mastodon/mastodon/security/advisories/GHSA-mq2m-hr29-8gqf))
+- Fix rate-limit on sign-up email verification ([GHSA-v39f-c9jj-8w7h](https://github.com/mastodon/mastodon/security/advisories/GHSA-v39f-c9jj-8w7h))
+- Fix improper disclosure of domain blocks to unverified users ([GHSA-94h4-fj37-c825](https://github.com/mastodon/mastodon/security/advisories/GHSA-94h4-fj37-c825))
+
+### Changed
+
+- Change preview cards to be shown when Content Warnings are expanded (#33827 by @ClearlyClaire)
+- Change warnings against changing encryption secrets to be even more noticeable (#33631 by @ClearlyClaire)
+- Change `mastodon:setup` to prevent overwriting already-configured servers (#33603, #33616, and #33684 by @ClearlyClaire and @mjankowski)
+- Change notifications from moderators to not be filtered (#32974 and #33654 by @ClearlyClaire and @mjankowski)
+
+### Fixed
+
+- Fix `GET /api/v2/notifications/:id` and `POST /api/v2/notifications/:id/dismiss` for ungrouped notifications (#33990 by @ClearlyClaire)
+- Fix issue with some versions of libvips on some systems (#33853 by @kleisauke)
+- Fix handling of duplicate mentions in incoming status `Update` (#33911 by @ClearlyClaire)
+- Fix inefficiencies in timeline generation (#33839 and #33842 by @ClearlyClaire)
+- Fix emoji rewrite adding unnecessary curft to the DOM for most emoji (#33818 by @ClearlyClaire)
+- Fix `tootctl feeds build` not building list timelines (#33783 by @ClearlyClaire)
+- Fix flaky test in `/api/v2/notifications` tests (#33773 by @ClearlyClaire)
+- Fix incorrect signature after HTTP redirect (#33757 and #33769 by @ClearlyClaire)
+- Fix polls not being validated on edition (#33755 by @ClearlyClaire)
+- Fix media preview height in compose form when 3 or more images are attached (#33571 by @ClearlyClaire)
+- Fix preview card sizing in “Author attribution” in profile settings (#33482 by @ClearlyClaire)
+- Fix processing of incoming notifications for unfilterable types (#33429 by @ClearlyClaire)
+- Fix featured tags for remote accounts not being kept up to date (#33372, #33406, and #33425 by @ClearlyClaire and @mjankowski)
+- Fix notification polling showing a loading bar in web UI (#32960 by @Gargron)
+- Fix accounts table long display name (#29316 by @WebCoder49)
+- Fix exclusive lists interfering with notifications (#28162 by @ShadowJonathan)
+
+## [4.3.3] - 2025-01-16
+
+### Security
+
+- Fix insufficient validation of account URIs ([GHSA-5wxh-3p65-r4g6](https://github.com/mastodon/mastodon/security/advisories/GHSA-5wxh-3p65-r4g6))
+- Update dependencies
+
+### Fixed
+
+- Fix `libyaml` missing from `Dockerfile` build stage (#33591 by @vmstan)
+- Fix incorrect notification settings migration for non-followers (#33348 by @ClearlyClaire)
+- Fix down clause for notification policy v2 migrations (#33340 by @jesseplusplus)
+- Fix error decrementing status count when `FeaturedTags#last_status_at` is `nil` (#33320 by @ClearlyClaire)
+- Fix last paginated notification group only including data on a single notification (#33271 by @ClearlyClaire)
+- Fix processing of mentions for post edits with an existing corresponding silent mention (#33227 by @ClearlyClaire)
+- Fix deletion of unconfirmed users with Webauthn set (#33186 by @ClearlyClaire)
+- Fix empty authors preview card serialization (#33151, #33466 by @mjankowski and @ClearlyClaire)
+
+## [4.3.2] - 2024-12-03
+
+### Added
+
+- Add `tootctl feeds vacuum` (#33065 by @ClearlyClaire)
+- Add error message when user tries to follow their own account (#31910 by @lenikadali)
+- Add client_secret_expires_at to OAuth Applications (#30317 by @ThisIsMissEm)
+
+### Changed
+
+- Change design of Content Warnings and filters (#32543 by @ClearlyClaire)
+
+### Fixed
+
+- Fix processing incoming post edits with mentions to unresolvable accounts (#33129 by @ClearlyClaire)
+- Fix error when including multiple instances of `embed.js` (#33107 by @YKWeyer)
+- Fix inactive users' timelines being backfilled on follow and unsuspend (#33094 by @ClearlyClaire)
+- Fix direct inbox delivery pushing posts into inactive followers' timelines (#33067 by @ClearlyClaire)
+- Fix `TagFollow` records not being correctly handled in account operations (#33063 by @ClearlyClaire)
+- Fix pushing hashtag-followed posts to feeds of inactive users (#33018 by @Gargron)
+- Fix duplicate notifications in notification groups when using slow mode (#33014 by @ClearlyClaire)
+- Fix posts made in the future being allowed to trend (#32996 by @ClearlyClaire)
+- Fix uploading higher-than-wide GIF profile picture with libvips enabled (#32911 by @ClearlyClaire)
+- Fix domain attribution field having autocorrect and autocapitalize enabled (#32903 by @ClearlyClaire)
+- Fix titles being escaped twice (#32889 by @ClearlyClaire)
+- Fix list creation limit check (#32869 by @ClearlyClaire)
+- Fix error in `tootctl email_domain_blocks` when supplying `--with-dns-records` (#32863 by @mjankowski)
+- Fix `min_id` and `max_id` causing error in search API (#32857 by @Gargron)
+- Fix inefficiencies when processing removal of posts that use featured tags (#32787 by @ClearlyClaire)
+- Fix alt-text pop-in not using the translated description (#32766 by @ClearlyClaire)
+- Fix preview cards with long titles erroneously causing layout changes (#32678 by @ClearlyClaire)
+- Fix embed modal layout on mobile (#32641 by @DismalShadowX)
+- Fix and improve batch attachment deletion handling when using OpenStack Swift (#32637 by @hugogameiro)
+- Fix blocks not being applied on link timeline (#32625 by @tribela)
+- Fix follow counters being incorrectly changed (#32622 by @oneiros)
+- Fix 'unknown' media attachment type rendering (#32613 and #32713 by @ThisIsMissEm and @renatolond)
+- Fix tl language native name (#32606 by @seav)
+
+### Security
+
+- Update dependencies
+
+## [4.3.1] - 2024-10-21
+
+### Added
+
+- Add more explicit explanations about author attribution and `fediverse:creator` (#32383 by @ClearlyClaire)
+- Add ability to group follow notifications in WebUI, can be disabled in the column settings (#32520 by @renchap)
+- Add back a 6 hours mute duration option (#32522 by @renchap)
+- Add note about not changing ActiveRecord encryption secrets once they are set (#32413, #32476, #32512, and #32537 by @ClearlyClaire and @mjankowski)
+
+### Changed
+
+- Change translation feature to translate to selected regional variant (e.g. pt-BR) if available (#32428 by @c960657)
+
+### Removed
+
+- Remove ability to get embed code for remote posts (#32578 by @ClearlyClaire)\
+  Getting the embed code is only reliable for local posts.\
+  It never worked for non-Mastodon servers, and stopped working correctly with the changes made in 4.3.0.\
+  We have therefore decided to remove the menu entry while we investigate solutions.
+
+### Fixed
+
+- Fix follow recommendation moderation page default language when using regional variant (#32580 by @ClearlyClaire)
+- Fix column-settings spacing in local timeline in advanced view (#32567 by @lindwurm)
+- Fix broken i18n in text welcome mailer tags area (#32571 by @mjankowski)
+- Fix missing or incorrect cache-control headers for Streaming server (#32551 by @ThisIsMissEm)
+- Fix only the first paragraph being displayed in some notifications (#32348 by @ClearlyClaire)
+- Fix reblog icons on account media view (#32506 by @tribela)
+- Fix Content-Security-Policy not allowing OpenStack SWIFT object storage URI (#32439 by @kenkiku1021)
+- Fix back arrow pointing to the incorrect direction in RTL languages (#32485 by @renchap)
+- Fix streaming server using `REDIS_USERNAME` instead of `REDIS_USER` (#32493 by @ThisIsMissEm)
+- Fix follow recommendation carrousel scrolling on RTL layouts (#32462 and #32505 by @ClearlyClaire)
+- Fix follow recommendation suppressions not applying immediately (#32392 by @ClearlyClaire)
+- Fix language of push notifications (#32415 by @ClearlyClaire)
+- Fix mute duration not being shown in list of muted accounts in web UI (#32388 by @ClearlyClaire)
+- Fix “Mark every notification as read” not updating the read marker if scrolled down (#32385 by @ClearlyClaire)
+- Fix “Mention” appearing for otherwise filtered posts (#32356 by @ClearlyClaire)
+- Fix notification requests from suspended accounts still being listed (#32354 by @ClearlyClaire)
+- Fix list edition modal styling (#32358 and #32367 by @ClearlyClaire and @vmstan)
+- Fix 4 columns barely not fitting on 1920px screen (#32361 by @ClearlyClaire)
+- Fix icon alignment in applications list (#32293 by @mjankowski)
+
 ## [4.3.0] - 2024-10-08
 
 The following changelog entries focus on changes visible to users, administrators, client developers or federated software developers, but there has also been a lot of code modernization, refactoring, and tooling work, in particular by @mjankowski.
@@ -51,7 +188,7 @@ The following changelog entries focus on changes visible to users, administrator
 - **Add notifications of severed relationships** (#27511, #29665, #29668, #29670, #29700, #29714, #29712, and #29731 by @ClearlyClaire and @Gargron)\
   Notify local users when they lose relationships as a result of a local moderator blocking a remote account or server, allowing the affected user to retrieve the list of broken relationships.\
   Note that this does not notify remote users.\
-  This adds the `severed_relationships` notification type to the REST API and streaming, with a new [`relationship_severance_event` attribute](https://docs.joinmastodon.org/entities/Notification/#relationship_severance_event).
+  This adds the `severed_relationships` notification type to the REST API and streaming, with a new [`event` attribute](https://docs.joinmastodon.org/entities/Notification/#relationship_severance_event).
 - **Add hover cards in web UI** (#30754, #30864, #30850, #30879, #30928, #30949, #30948, #30931, and #31300 by @ClearlyClaire, @Gargron, and @renchap)\
   Hovering over an avatar or username will now display a hover card with the first two lines of the user's description and their first two profile fields.\
   This can be disabled in the “Animations and accessibility” section of the preferences.
@@ -67,7 +204,7 @@ The following changelog entries focus on changes visible to users, administrator
   ```html
   <meta name="fediverse:creator" content="username@domain" />
   ```
-  On the API side, this is represented by a new `authors` attribute to the `PreviewCard` entity: https://docs.joinmastodon.org/entities/PreviewCard/#authors\
+  On the API side, this is represented by a new `authors` attribute to the `PreviewCard` entity: https://docs.joinmastodon.org/entities/PreviewCard/#authors \
   Users can allow arbitrary domains to use `fediverse:creator` to credit them by visiting `/settings/verification`.\
   This is federated as a new `attributionDomains` property in the `http://joinmastodon.org/ns` namespace, containing an array of domain names: https://docs.joinmastodon.org/spec/activitypub/#properties-used-1
 - **Add in-app notifications for moderation actions and warnings** (#30065, #30082, and #30081 by @ClearlyClaire)\
