@@ -101,7 +101,8 @@ const CHANNEL_NAMES = [
 ];
 
 const startServer = async () => {
-  const pgPool = Database.getPool(Database.configFromEnv(process.env, environment));
+  const pgConfig = Database.configFromEnv(process.env, environment);
+  const pgPool = Database.getPool(pgConfig, environment, logger);
 
   const metrics = setupMetrics(CHANNEL_NAMES, pgPool);
 
@@ -651,7 +652,7 @@ const startServer = async () => {
       // filtering of statuses:
 
       // Filter based on language:
-      if (Array.isArray(req.chosenLanguages) && payload.language !== null && req.chosenLanguages.indexOf(payload.language) === -1) {
+      if (Array.isArray(req.chosenLanguages) && req.chosenLanguages.indexOf(payload.language) === -1) {
         log.debug(`Message ${payload.id} filtered by language (${payload.language})`);
         return;
       }
