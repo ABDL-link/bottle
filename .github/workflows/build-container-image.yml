@@ -58,7 +58,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
           
-      - uses: docker/metadata-action@v4
+      - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         if: ${{ inputs.push_to_images != '' }}
