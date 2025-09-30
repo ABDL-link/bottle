@@ -36,16 +36,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup mirror
-        uses: self-actuated/hub-mirror@master
         
       - name: Get Repo Owner
         id: get_repo_owner
         run: echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" > $GITHUB_ENV
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Log in to Docker Hub
         if: contains(inputs.push_to_images, 'emmaae')
@@ -188,12 +185,6 @@ jobs:
     runs-on: ARM64
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup mirror
-        uses: self-actuated/hub-mirror@master
-        
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
         
       - name: Get Repo Owner
         id: get_repo_owner
