@@ -124,6 +124,10 @@ RSpec.describe 'Caching behavior' do
     it 'does not set cookies or set public cache control', :aggregate_failures do
       expect(response.cookies).to be_empty
 
+<<<<<<< HEAD
+=======
+    it 'sets public cache control', :aggregate_failures do
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
       # expect(response.cache_control[:max_age]&.to_i).to be_positive
       expect(response.cache_control[:public]).to be_truthy
       expect(response.cache_control[:private]).to be_falsy
@@ -189,7 +193,11 @@ RSpec.describe 'Caching behavior' do
         get '/users/alice'
 
         expect(response).to redirect_to('/@alice')
+<<<<<<< HEAD
         expect(response_vary_headers).to include('accept')
+=======
+        expect(response.headers['Vary']&.split(',')&.map { |x| x.strip.downcase }).to include('accept')
+>>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
       end
     end
 
