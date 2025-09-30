@@ -32,7 +32,6 @@ jobs:
       metadata: ${{ steps.version_vars.outputs.mastodon_version_metadata }}
       short_sha: ${{ steps.version_vars.outputs.mastodon_short_sha }}
       owner: ${{ steps.get_repo_owner.outputs.REPO_OWNER }}
-
   build-image:
     needs: compute-suffix
     uses: ./.github/workflows/build-container-image.yml
