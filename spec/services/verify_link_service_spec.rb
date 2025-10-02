@@ -105,7 +105,6 @@ RSpec.describe VerifyLinkService do
       end
     end
 
-<<<<<<< HEAD
     context 'when a link tag might be truncated' do
       let(:html) do
         <<-HTML_TRUNCATED
@@ -120,8 +119,6 @@ RSpec.describe VerifyLinkService do
       end
     end
 
-=======
->>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
     context 'when a link does not contain a link back' do
       let(:html) { '' }
 
