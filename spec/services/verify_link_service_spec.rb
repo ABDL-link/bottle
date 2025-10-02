@@ -96,27 +96,8 @@ RSpec.describe VerifyLinkService do
         <<-HTML
           <!doctype html>
           <body>
-<<<<<<< HEAD
             <a rel="me" href="#{ActivityPub::TagManager.instance.url_for(account)}">
         HTML
-=======
-            <a rel=\"me\" href=\"#{ActivityPub::TagManager.instance.url_for(account)}\">
-        "
-      end
-
-      it 'marks the field as verified' do
-        expect(field.verified?).to be true
-      end
-    end
-
-    context 'when a link tag might be truncated' do
-      let(:html) do
-        "
-          <!doctype html>
-          <body>
-            <a rel=\"me\" href=\"#{ActivityPub::TagManager.instance.url_for(account)}\"
-        "
->>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
       end
 
       it 'marks the field as verified' do
