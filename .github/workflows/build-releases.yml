@@ -19,7 +19,7 @@ jobs:
           echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
     outputs:
       owner: ${{ steps.get_repo_owner.outputs.REPO_OWNER }}
-      
+
   build-image:
     uses: ./.github/workflows/build-container-image.yml
     needs: compute-owner
