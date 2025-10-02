@@ -27,7 +27,7 @@ module Mastodon
     def build_metadata
       version_configuration[:metadata]
     end
-      
+
     def suffix
       '+bottle'
     end

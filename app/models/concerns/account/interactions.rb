@@ -225,8 +225,4 @@ module Account::Interactions
   def normalized_domain(domain)
     TagManager.instance.normalize_domain(domain)
   end
-
-  def normalized_domain(domain)
-    TagManager.instance.normalize_domain(domain)
-  end
 end

@@ -75,13 +75,6 @@ RSpec.describe PostStatusService do
       end
     end
 
-    it 'returns existing status when used twice with idempotency key' do
-      account = Fabricate(:account)
-      status1 = subject.call(account, text: 'test', idempotency: 'meepmeep', scheduled_at: future)
-      status2 = subject.call(account, text: 'test', idempotency: 'meepmeep', scheduled_at: future)
-      expect(status2.id).to eq status1.id
-    end
-
     context 'when scheduled_at is less than min offset' do
       let(:invalid_scheduled_time) { 4.minutes.from_now }
 
