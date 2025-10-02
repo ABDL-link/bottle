@@ -189,11 +189,7 @@ RSpec.describe 'Caching behavior' do
         get '/users/alice'
 
         expect(response).to redirect_to('/@alice')
-<<<<<<< HEAD
         expect(response_vary_headers).to include('accept')
-=======
-        expect(response.headers['Vary']&.split(',')&.map { |x| x.strip.downcase }).to include('accept')
->>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
       end
     end
 
