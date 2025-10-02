@@ -109,7 +109,7 @@ RSpec.describe RemoveStatusService, :inline_jobs do
 
     it 'sends Undo activity to followers' do
       subject.call(status)
-  
+
       expect(undo_delivery(bill, original_status))
         .to have_been_made.once
     end
