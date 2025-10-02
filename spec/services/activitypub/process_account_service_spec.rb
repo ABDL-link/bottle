@@ -60,7 +60,6 @@ RSpec.describe ActivityPub::ProcessAccountService do
         avatar_remote_url: 'https://foo.test/icon.png',
         header_remote_url: 'https://foo.test/image.png'
       )
-<<<<<<< HEAD
     end
   end
 
@@ -81,8 +80,6 @@ RSpec.describe ActivityPub::ProcessAccountService do
 
       expect(account.attribution_domains)
         .to match_array(%w(example.com))
-=======
->>>>>>> 066432d0a0a6c3e3b57f100061835eabced6e101
     end
   end
 
