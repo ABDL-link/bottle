@@ -167,6 +167,7 @@ RSpec.describe ActivityPub::TagManager do
       reblog = Fabricate(:status, visibility: :public, account: alice, reblog: status)
       expect(subject.cc(reblog)).to include(subject.uri_for(bob))
     end
+  end
 
   describe '#local_uri?' do
     it 'returns false for non-local URI' do
