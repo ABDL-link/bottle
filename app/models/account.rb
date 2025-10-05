@@ -67,7 +67,7 @@ class Account < ApplicationRecord
   BACKGROUND_REFRESH_INTERVAL = 1.week.freeze
   REFRESH_DEADLINE = 6.hours
   STALE_THRESHOLD = 1.day
-  DEFAULT_FIELDS_SIZE = 4
+  DEFAULT_FIELDS_SIZE = 6
   INSTANCE_ACTOR_ID = -99
 
   USERNAME_RE   = /[a-z0-9_]+([.-]+[a-z0-9_]+)*/i
@@ -323,8 +323,6 @@ class Account < ApplicationRecord
 
     self[:fields] = fields
   end
-
-  DEFAULT_FIELDS_SIZE = 6
 
   def build_fields
     return if fields.size >= DEFAULT_FIELDS_SIZE
