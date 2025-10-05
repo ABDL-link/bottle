@@ -167,7 +167,7 @@ en:
     labels:
       account:
         attribution_domains: Websites allowed to credit you
-        attribution_domains_as_text: Websites allowed to credit you  
+        attribution_domains_as_text: Websites allowed to credit you
         discoverable: Feature profile and posts in discovery algorithms
         fields:
           name: Label
