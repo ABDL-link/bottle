@@ -64,6 +64,38 @@ RSpec.describe InstancePresenter do
     end
   end
 
+  describe '#source_url' do
+    context 'with the GITHUB_REPOSITORY env variable set' do
+      around do |example|
+        ClimateControl.modify GITHUB_REPOSITORY: 'other/repo' do
+          reload_configuration
+          example.run
+        end
+      end
+
+      it 'uses the env variable to build a repo URL' do
+        expect(instance_presenter.source_url).to eq('https://github.com/other/repo')
+      end
+    end
+
+    context 'without the GITHUB_REPOSITORY env variable set' do
+      around do |example|
+        ClimateControl.modify GITHUB_REPOSITORY: nil do
+          reload_configuration
+          example.run
+        end
+      end
+
+      it 'defaults to the core mastodon repo URL' do
+        expect(instance_presenter.source_url).to eq('https://github.com/mastodon/mastodon')
+      end
+    end
+
+    def reload_configuration
+      Rails.configuration.x.mastodon = Rails.application.config_for(:mastodon)
+    end
+  end
+
   describe '#thumbnail' do
     it 'returns SiteUpload' do
       thumbnail = Fabricate(:site_upload, var: 'thumbnail')

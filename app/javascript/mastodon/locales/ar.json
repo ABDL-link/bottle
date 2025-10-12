@@ -1,7 +1,7 @@
 {
   "about.blocks": "خوادم تحت الإشراف",
   "about.contact": "للاتصال:",
-  "about.default_locale": "افتراضيالافتراضية",
+  "about.default_locale": "افتراضي",
   "about.disclaimer": "ماستدون برنامج حر ومفتوح المصدر وعلامة تجارية لـ Mastodon GmbH.",
   "about.domain_blocks.no_reason_available": "السبب غير متوفر",
   "about.domain_blocks.preamble": "يتيح مَستُدون عمومًا لمستخدميه مطالعة المحتوى من المستخدمين من الخواديم الأخرى في الفدرالية والتفاعل معهم. وهذه هي الاستثناءات التي وضعت على هذا الخادوم.",
@@ -110,7 +110,7 @@
   "announcement.announcement": "إعلان",
   "annual_report.summary.archetype.booster": "The cool-hunter",
   "annual_report.summary.archetype.lurker": "المتصفح الصامت",
-  "annual_report.summary.archetype.oracle": "حكيم",
+  "annual_report.summary.archetype.oracle": "الحكيم",
   "annual_report.summary.archetype.pollster": "مستطلع للرأي",
   "annual_report.summary.archetype.replier": "الفراشة الاجتماعية",
   "annual_report.summary.followers.followers": "المُتابِعُون",
