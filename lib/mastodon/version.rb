@@ -28,6 +28,10 @@ module Mastodon
       version_configuration[:metadata]
     end
 
+    def suffix
+      '+bottle'
+    end
+
     def to_a
       [major, minor, patch].compact
     end
@@ -50,7 +54,7 @@ module Mastodon
     end
 
     def repository
-      source_configuration[:repository]
+      ENV.fetch('GITHUB_REPOSITORY', 'ABDL-link/bottle')
     end
 
     def source_base_url
