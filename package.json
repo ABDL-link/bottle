@@ -133,6 +133,7 @@
   "devDependencies": {
     "@eslint/js": "^9.23.0",
     "@formatjs/cli": "^6.1.1",
+    "@pkgr/core": "^0.3.5",
     "@storybook/addon-a11y": "^9.1.1",
     "@storybook/addon-docs": "^9.1.1",
     "@storybook/addon-vitest": "^9.1.1",

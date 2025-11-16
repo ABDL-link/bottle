@@ -2802,6 +2802,7 @@ __metadata:
     "@gamestdio/websocket": "npm:^0.3.2"
     "@github/webauthn-json": "npm:^2.1.1"
     "@optimize-lodash/rollup-plugin": "npm:^5.0.2"
+    "@pkgr/core": "npm:^0.3.5"
     "@rails/ujs": "npm:7.1.600"
     "@react-spring/web": "npm:^9.7.5"
     "@reduxjs/toolkit": "npm:^2.0.1"
@@ -3283,6 +3284,13 @@ __metadata:
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
   checksum: 10c0/5bd7576bb1b38a47a7fc7b51ac9f38748e772beebc56200450c4a817d712232b8f1d3ef70532c80840243c657d491cf6a6be1e3a214cff907645819fdc34aadd
+  languageName: node
+  linkType: hard
+
+"@pkgr/core@npm:^0.3.5":
+  version: 0.3.5
+  resolution: "@pkgr/core@npm:0.3.5"
+  checksum: 10c0/7ff03030187a15c465512a94a09354d861d2d42e2e8dea121d5ab85fd8581ad388e5e46620bd8d203cde587a4dff226c487d3c9d3538833538424458894634b5
   languageName: node
   linkType: hard
 
