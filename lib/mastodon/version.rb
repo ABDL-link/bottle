@@ -9,7 +9,7 @@ module Mastodon
     end
 
     def minor
-      4
+      5
     end
 
     def patch
@@ -49,7 +49,7 @@ module Mastodon
 
     def api_versions
       {
-        mastodon: 6,
+        mastodon: 7,
       }
     end
 
