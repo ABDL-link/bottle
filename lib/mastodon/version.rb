@@ -13,7 +13,7 @@ module Mastodon
     end
 
     def patch
-      0
+      1
     end
 
     def default_prerelease
@@ -26,6 +26,10 @@ module Mastodon
 
     def build_metadata
       version_configuration[:metadata]
+    end
+
+    def suffix
+      '+bottle'
     end
 
     def to_a
@@ -50,7 +54,7 @@ module Mastodon
     end
 
     def repository
-      source_configuration[:repository]
+      ENV.fetch('GITHUB_REPOSITORY', 'ABDL-link/bottle')
     end
 
     def source_base_url
