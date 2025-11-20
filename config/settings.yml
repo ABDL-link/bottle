@@ -18,7 +18,11 @@ defaults: &defaults
   remote_topic_feed_access: 'public'
   show_staff_badge: true
   preview_sensitive_media: false
-  noindex: false
+  reduce_motion: false
+  disable_swiping: false
+  show_application: true
+  system_font_ui: false
+  noindex: true
   theme: 'system'
   trends: true
   trendable_by_default: false

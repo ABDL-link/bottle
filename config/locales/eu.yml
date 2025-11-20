@@ -1756,6 +1756,10 @@ eu:
       limit: Gehienez finkatu daitekeen bidalketa kopurua finkatu duzu jada
       ownership: Ezin duzu beste norbaiten bidalketa bat finkatu
       reblog: Bultzada bat ezin da finkatu
+    quote_policies:
+      followers: Jarraitzaileak eta aipatutako erabiltzaileak
+      nobody: Aipatutako erabiltzaileak soilik
+      public: Guztiak
     title: '%{name}: "%{quote}"'
     visibilities:
       public: Publikoa
