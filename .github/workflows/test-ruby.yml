@@ -119,6 +119,7 @@ jobs:
       CAS_ENABLED: true
       BUNDLE_WITH: 'pam_authentication test'
       GITHUB_RSPEC: ${{ matrix.ruby-version == '.ruby-version' && github.event.pull_request && 'true' }}
+      GITHUB_REPOSITORY: ABDL-link/bottle
 
     strategy:
       fail-fast: false
@@ -127,6 +128,7 @@ jobs:
           - '3.2'
           - '3.3'
           - '.ruby-version'
+          - '3.4'
     steps:
       - uses: actions/checkout@v4
 
@@ -229,6 +231,7 @@ jobs:
           - '3.2'
           - '3.3'
           - '.ruby-version'
+          - '3.4'
     steps:
       - uses: actions/checkout@v4
 
@@ -307,6 +310,7 @@ jobs:
           - '3.2'
           - '3.3'
           - '.ruby-version'
+          - '3.4'
 
     steps:
       - uses: actions/checkout@v4
@@ -438,6 +442,7 @@ jobs:
           - '3.2'
           - '3.3'
           - '.ruby-version'
+          - '3.4'
         search-image:
           - docker.elastic.co/elasticsearch/elasticsearch:7.17.13
         include:
