@@ -4,12 +4,16 @@
 
 A fork of [mastodon](https://github.com/mastodon/mastodon) used on [ABDL.link](https://abdl.link). Build for arch
 
-## License
+You can learn about setting up a development environment in the [DEVELOPMENT](docs/DEVELOPMENT.md) documentation.
+
+If you would like to help with translations 🌐 you can do so on [Crowdin](https://crowdin.com/project/mastodon).
+
+## LICENSE
 
 Copyright (C) 2016-2024 Eugen Rochko, [James](https://abdl.link/@james), [Luna](https://abdl.link/@Pikachu), & other Mastodon contributors (see [AUTHORS.md](AUTHORS.md))
 Licensed under GNU Affero General Public License as stated in the [LICENSE](LICENSE):
 
-```
+```text
 Copyright (c) 2016-2025 Eugen Rochko & other Mastodon contributors
 
 This program is free software: you can redistribute it and/or modify it under
@@ -25,7 +29,3 @@ details.
 You should have received a copy of the GNU Affero General Public License along
 with this program. If not, see https://www.gnu.org/licenses/
 ```
-
-[CONTRIBUTING]: CONTRIBUTING.md
-[DEVELOPMENT]: docs/DEVELOPMENT.md
-[OpenCollective]: https://opencollective.com/mastodon
