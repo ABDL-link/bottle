@@ -14,7 +14,7 @@ module WrapstodonHelper
 
     json_string = payload.to_json
 
-    # rubocop:disable-next-line Rails/OutputSafety
+    # rubocop:disable-next Rails/OutputSafety
     content_tag(:script, json_escape(json_string).html_safe, type: 'application/json', id: 'wrapstodon-data')
   end
 end
