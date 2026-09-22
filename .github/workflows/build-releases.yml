@@ -57,9 +57,10 @@ jobs:
           fi
 
   build-image:
-    needs: check-latest-stable
+    needs:
+      - check-latest-stable
+      - compute-owner
     uses: ./.github/workflows/build-container-image.yml
-    needs: compute-owner
     with:
       push_to_images: |
         emmaae/mastodon-ab
