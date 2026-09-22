@@ -63,6 +63,7 @@ class Setting < ApplicationRecord
         self[method.to_s]
       end
     end
+
     def cache_prefix_by_startup
       @cache_prefix_by_startup ||= Digest::MD5.hexdigest(default_settings.to_s)
     end
