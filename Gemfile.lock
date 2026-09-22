@@ -353,7 +353,7 @@ GEM
       azure-blob (~> 0.5.2)
       hashie (~> 5.0)
     jmespath (1.6.2)
-    json (3.0.2)
+    json (2.21.2)
     json-canonicalization (1.0.0)
     json-jwt (1.17.1)
       activesupport (>= 4.2)
@@ -999,7 +999,7 @@ DEPENDENCIES
   ipaddr (~> 1.2)
   irb (~> 1.8)
   jd-paperclip-azure (~> 3.0)
-  json
+  json (~> 2.19, >= 2.19.9)
   json-ld
   json-ld-preloaded (~> 3.2)
   json-schema (~> 6.0)
