@@ -75,13 +75,15 @@ jobs:
     secrets: inherit
 
   build-image-streaming:
-    needs: check-latest-stable
+    needs:
+      - check-latest-stable
+      - compute-owner
     uses: ./.github/workflows/build-container-image.yml
     with:
       file_to_build: streaming/Dockerfile
       push_to_images: |
-        tootsuite/mastodon-streaming
-        ghcr.io/mastodon/mastodon-streaming
+        emmaae/mastodon-ab
+        ghcr.io/${{ needs.compute-owner.outputs.owner }}/bottle
       # Do not use cache when building releases, so apt update is always ran and the release always contain the latest packages
       cache: false
       # Only tag with latest when ran against the latest stable branch
