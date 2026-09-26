@@ -986,7 +986,7 @@ DEPENDENCIES
   ipaddr (~> 1.2)
   irb (~> 1.8)
   jd-paperclip-azure (~> 3.0)
-  json
+  json (~> 2.19, >= 2.19.9)
   json-canonicalization (~> 1.0)
   json-ld
   json-ld-preloaded (~> 3.2)

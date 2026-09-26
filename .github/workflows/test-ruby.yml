@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
 
     strategy:
@@ -75,7 +75,7 @@ jobs:
           retention-days: 0
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60
 
     needs:
@@ -121,6 +121,7 @@ jobs:
       CAS_ENABLED: true
       BUNDLE_WITH: 'pam_authentication test'
       GITHUB_RSPEC: ${{ matrix.ruby-version == '.ruby-version' && github.event.pull_request && 'true' }}
+      GITHUB_REPOSITORY: ABDL-link/bottle
 
     strategy:
       fail-fast: false
@@ -129,6 +130,7 @@ jobs:
           - '3.3'
           - '3.4'
           - '.ruby-version'
+          - '3.4'
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
@@ -146,7 +148,7 @@ jobs:
         uses: ./.github/actions/setup-ruby
         with:
           ruby-version: ${{ matrix.ruby-version}}
-          additional-system-dependencies: ffmpeg libpam-dev
+          additional-system-dependencies: ffmpeg imagemagick libpam-dev
 
       - name: Load database schema
         run: |
@@ -178,7 +180,7 @@ jobs:
 
   test-e2e:
     name: End to End testing
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
 
     needs:
@@ -224,6 +226,7 @@ jobs:
           - '3.3'
           - '3.4'
           - '.ruby-version'
+          - '3.4'
 
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
@@ -242,7 +245,7 @@ jobs:
         timeout-minutes: 15
         with:
           ruby-version: ${{ matrix.ruby-version}}
-          additional-system-dependencies: ffmpeg
+          additional-system-dependencies: ffmpeg imagemagick
 
       - name: Set up Javascript environment
         uses: ./.github/actions/setup-javascript
@@ -283,7 +286,7 @@ jobs:
 
   test-search:
     name: Elastic Search integration testing
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
 
     needs:
@@ -357,6 +360,7 @@ jobs:
           - '3.3'
           - '3.4'
           - '.ruby-version'
+          - '3.4'
         search-image:
           - docker.elastic.co/elasticsearch/elasticsearch:7.17.29
         include:
@@ -378,7 +382,7 @@ jobs:
         timeout-minutes: 15
         with:
           ruby-version: ${{ matrix.ruby-version}}
-          additional-system-dependencies: ffmpeg
+          additional-system-dependencies: ffmpeg imagemagick
 
       - name: Set up Javascript environment
         uses: ./.github/actions/setup-javascript
