@@ -23,6 +23,19 @@ runs:
           libheif-plugin-libde265 \
           ${{ inputs.additional-system-dependencies }}
 
+        # Optional image codecs (HEIF/AVIF). Installed best-effort so a missing
+        # or renamed package on a new Ubuntu release cannot break every Ruby job.
+        for pkg in libvips-tools libaom-tools; do
+          sudo apt-get install --no-install-recommends -y "$pkg" \
+            || echo "warning: could not install $pkg"
+        done
+
+    - name: Report libvips format support
+      shell: bash
+      run: |
+        vips --version || true
+        vips -l 2>/dev/null | grep -Ei 'heif|avif|heic' || echo 'no HEIF/AVIF loaders found'
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@6e5d382445ae5590b7449d8b3bc8cb1c2c27f617 # v1
       with:
