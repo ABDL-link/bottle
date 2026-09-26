@@ -103,7 +103,7 @@ const Preview: React.FC<{
   position: FocalPoint;
   onPositionChange: (arg0: FocalPoint) => void;
 }> = ({ mediaId, position, onPositionChange }) => {
-  const nodeRef = useRef<HTMLImageElement | HTMLVideoElement | null>(null);
+  const nodeRef = useRef<HTMLImageElement | HTMLVideoElement>(null);
 
   const [dragging, setDragging] = useState<'started' | 'moving' | null>(null);
 
@@ -443,7 +443,7 @@ export const AltTextModal = forwardRef<ModalRef, Props & Partial<RestoreProps>>(
             {(type === 'audio' || type === 'video') && unattached && (
               <UploadButton
                 onSelectFile={handleThumbnailChange}
-                mimeTypes='image/jpeg,image/png,image/gif,image/heic,image/heif,image/webp,image/avif'
+                mimeTypes='image/jpeg,image/png,image/gif,image/webp'
               >
                 <FormattedMessage
                   id='alt_text_modal.change_thumbnail'

@@ -94,7 +94,8 @@ module StatusesHelper
       adapter: SEO::Adapter
     ).to_json
 
-    # rubocop:disable-next Rails/OutputSafety
+    # rubocop:disable Rails/OutputSafety
     content_tag(:script, json_escape(json).html_safe, type: 'application/ld+json')
+    # rubocop:enable Rails/OutputSafety
   end
 end

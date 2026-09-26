@@ -8,8 +8,9 @@ module RuboCop
         extend AutoCorrector
         extend Util
 
-        # rubocop:disable-next Style/MiddleDot
+        # rubocop:disable Style/MiddleDot
         BULLET = '•'
+        # rubocop:enable Style/MiddleDot
         MIDDLE_DOT = '·'
         MESSAGE = "Use '#{MIDDLE_DOT}' (middle dot) instead of '#{BULLET}' (bullet)".freeze
 
