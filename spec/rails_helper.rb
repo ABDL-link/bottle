@@ -125,10 +125,10 @@ RSpec.configure do |config|
 
   config.before do |example|
     unless example.metadata[:attachment_processing]
-      # rubocop:disable-next RSpec/AnyInstance
+      # rubocop:disable RSpec/AnyInstance
       allow_any_instance_of(Paperclip::Attachment).to receive(:post_process).and_return(true)
-      # rubocop:disable-next RSpec/AnyInstance
       allow_any_instance_of(Paperclip::MediaTypeSpoofDetector).to receive(:spoofed?).and_return(false)
+      # rubocop:enable RSpec/AnyInstance
     end
   end
 
