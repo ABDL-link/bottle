@@ -26,6 +26,7 @@ on:
 jobs:
   # Build each (amd64 and arm64) image separately
   build-image:
+    environment: prod
     runs-on: ${{ startsWith(matrix.platform, 'linux/arm') && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
     strategy:
       fail-fast: false
@@ -52,7 +53,7 @@ jobs:
         id: buildx
 
       - name: Log in to Docker Hub
-        if: contains(inputs.push_to_images, 'tootsuite')
+        if: contains(inputs.push_to_images, 'emmaae')
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -111,6 +112,7 @@ jobs:
 
   # Then merge the docker images into a single one
   merge-images:
+    environment: prod
     if: ${{ inputs.push_to_images != '' }}
     runs-on: ubuntu-24.04
     needs:
@@ -131,7 +133,7 @@ jobs:
           merge-multiple: true
 
       - name: Log in to Docker Hub
-        if: contains(inputs.push_to_images, 'tootsuite')
+        if: contains(inputs.push_to_images, 'emmaae')
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
