@@ -82,8 +82,8 @@ jobs:
     with:
       file_to_build: streaming/Dockerfile
       push_to_images: |
-        emmaae/mastodon-ab
-        ghcr.io/${{ needs.compute-owner.outputs.owner }}/bottle
+        emmaae/mastodon-ab-streaming
+        ghcr.io/${{ needs.compute-owner.outputs.owner }}/bottle-streaming
       # Do not use cache when building releases, so apt update is always ran and the release always contain the latest packages
       cache: false
       # Only tag with latest when ran against the latest stable branch
